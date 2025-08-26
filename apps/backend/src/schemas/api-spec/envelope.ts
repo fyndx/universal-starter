@@ -63,6 +63,7 @@ export type EnvelopeSuccess<D> = {
 export type EnvelopeError = {
 	ok: false;
 	code: string;
+	data: null;
 	error: Problem;
 	links?: LinkMap;
 	ui?: UI;
@@ -98,6 +99,7 @@ export const makeBulkResultSchema = <SuccessItem extends TSchema>(
 					{
 						index: t.Integer({ minimum: 0 }),
 						// Attach your domain fields for a success item
+						// TODO: just use successItemSchema https://github.com/fyndx/universal-starter/pull/13#discussion_r2300996906
 						...("properties" in successItemSchema
 							? (successItemSchema as any).properties
 							: { value: successItemSchema }),

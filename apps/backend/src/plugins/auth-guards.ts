@@ -8,14 +8,22 @@ export const requireAuth = () =>
 		.use(withAuth())
 		.onBeforeHandle({ as: "scoped" }, ({ session, user, set }) => {
 			if (!session || !user) {
-				const { code, message } = getStatusCode(401);
-				set.status = 401;
-				throw formatErrorResponse({
+				const { code: status, message } = getStatusCode(401);
+				set.status = status as number;
+				const envelope = formatErrorResponse({
 					code: message,
 					problem: {
-						status: code as number,
+						status: status as number,
 						title: "User is not authenticated",
-						type: "AUTHENTICATION_ERROR",
+						type: "urn:problem-type:authentication-error",
+					},
+				});
+
+				throw new Response(JSON.stringify(envelope), {
+					status: status as number,
+					headers: {
+						"Content-Type": "application/problem+json, charset=utf-8",
+						"www-authenticate": 'Bearer realm="api"',
 					},
 				});
 			}
@@ -30,14 +38,21 @@ export const requireRole = (roles: string[]) =>
 			const hasRole = role && roles.includes(role);
 
 			if (!hasRole) {
-				set.status = 403;
-				const { code, message } = getStatusCode(403);
-				throw formatErrorResponse({
+				const { code: status, message } = getStatusCode(403);
+
+				set.status = status as number;
+				const envelope = formatErrorResponse({
 					code: message,
 					problem: {
-						status: code as number,
+						status: status as number,
 						title: "User is not authorized",
-						type: "AUTHORIZATION_ERROR",
+						type: "urn:problem-type:authorization-error",
+					},
+				});
+				throw new Response(JSON.stringify(envelope), {
+					status: status as number,
+					headers: {
+						"Content-Type": "application/problem+json, charset=utf-8",
 					},
 				});
 			}

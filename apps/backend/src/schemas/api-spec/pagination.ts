@@ -26,3 +26,5 @@ export const PageOffsetSchema = t.Object(
 
 export const PageSchema = t.Union([PageCursorSchema, PageOffsetSchema]);
 export type Page = Static<typeof PageSchema>;
+export type PageCursor = Static<typeof PageCursorSchema>;
+export type PageOffset = Static<typeof PageOffsetSchema>;

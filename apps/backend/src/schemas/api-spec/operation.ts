@@ -4,7 +4,8 @@ import { ProblemSchema } from "./problem";
 /** ------------------------------------------
  * Long-running operation (LRO) resource
  * ------------------------------------------ */
-
+// TODO: Improve this schema
+// https://github.com/fyndx/universal-starter/pull/13#discussion_r2300996939
 export const OperationSchema = t.Object(
 	{
 		name: t.String(),

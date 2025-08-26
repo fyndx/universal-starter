@@ -32,9 +32,8 @@ export type ErrorOptions = Omit<SuccessOptions, "etag"> & {
 
 const defaultNow = () => new Date().toISOString();
 const defaultId = () =>
-	typeof crypto !== "undefined" && "randomUUID" in crypto
-		? crypto.randomUUID()
-		: `req_${Math.random().toString(36).slice(2, 10)}`;
+	globalThis.crypto?.randomUUID?.() ??
+	`req_${Math.random().toString(36).slice(2, 10)}`;
 
 function buildMeta(opts: SuccessOptions | ErrorOptions): Meta {
 	const reqId = opts.requestId ?? (opts.generateRequestId ?? defaultId)();
@@ -54,6 +53,12 @@ function buildMeta(opts: SuccessOptions | ErrorOptions): Meta {
 	};
 }
 
+interface FormatSuccessParams<D> {
+	code: string;
+	data: D;
+	options?: SuccessOptions;
+}
+
 /**
  * formatSuccessResponse — builds an EnvelopeSuccess<D>
  */
@@ -61,11 +66,7 @@ export function formatSuccessResponse<D>({
 	code,
 	data,
 	options = {},
-}: {
-	code: string;
-	data: D;
-	options?: SuccessOptions;
-}): EnvelopeSuccess<D> {
+}: FormatSuccessParams<D>): EnvelopeSuccess<D> {
 	const meta = buildMeta(options);
 	const envelope: EnvelopeSuccess<D> = {
 		ok: true,
@@ -96,15 +97,17 @@ export type ProblemInput = Pick<Problem, "type" | "title" | "status"> &
 		>
 	>;
 
+interface FormatErrorParams {
+	code: string;
+	problem: ProblemInput;
+	options?: ErrorOptions;
+}
+
 export function formatErrorResponse({
 	code,
 	problem,
 	options = {},
-}: {
-	code: string;
-	problem: ProblemInput;
-	options?: ErrorOptions;
-}): EnvelopeError {
+}: FormatErrorParams): EnvelopeError {
 	const meta = buildMeta(options);
 	const mergedProblem: Problem = {
 		...problem,
@@ -115,6 +118,7 @@ export function formatErrorResponse({
 	const envelope: EnvelopeError = {
 		ok: false,
 		code,
+		data: null,
 		error: mergedProblem,
 		...(options.links ? { links: options.links } : {}),
 		...(options.ui ? { ui: options.ui } : {}),

@@ -48,7 +48,7 @@ export const meRoutes = () =>
 			"/",
 			({ user }) => {
 				// Ensure user is not null
-				if (!user || user === null) {
+				if (!user) {
 					throw new Error("User not found");
 				}
 

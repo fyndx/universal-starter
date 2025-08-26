@@ -3,10 +3,11 @@ import { type Static, t } from "elysia";
 /** ------------------------------------------
  * Problem (RFC7807-compatible) for errors
  * ------------------------------------------ */
-
+// TODO: Add json pointer on client
+// https://www.npmjs.com/package/@jsonjoy.com/json-pointer
 export const ProblemFieldIssueSchema = t.Object(
 	{
-		path: t.String(),
+		path: t.String({ format: "json-pointer" }),
 		reason: t.String(),
 		message: t.Optional(t.String()),
 	},
