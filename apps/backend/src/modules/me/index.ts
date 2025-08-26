@@ -1,7 +1,10 @@
 import { withAuth } from "@/src/plugins/auth";
 import { requireAuth } from "@/src/plugins/auth-guards";
-import { ErrorResponseSchema } from "@/src/schemas/response";
-import { formatResponseSchema } from "@/src/utils/format-response";
+import {
+	makeErrorEnvelopeSchema,
+	makeSuccessEnvelopeSchema,
+} from "@/src/schemas/api-spec";
+import { formatSuccessResponse } from "@/src/utils/format-response";
 import Elysia, { t } from "elysia";
 
 const UserSchema = t.Object({
@@ -37,11 +40,6 @@ const UserSchema = t.Object({
 	),
 });
 
-// Use Elysia's type inference with the BetterAuthUser type
-const MeResponseSchema = t.Object({
-	user: UserSchema,
-});
-
 export const meRoutes = () =>
 	new Elysia({ prefix: "/me" })
 		.use(withAuth())
@@ -49,8 +47,6 @@ export const meRoutes = () =>
 		.get(
 			"/",
 			({ user }) => {
-				console.log("user at /me:", user);
-
 				// Ensure user is not null
 				if (!user || user === null) {
 					throw new Error("User not found");
@@ -71,7 +67,10 @@ export const meRoutes = () =>
 					banExpires: user.banExpires ?? null,
 				};
 
-				return { user: userResponse };
+				return formatSuccessResponse({
+					code: "USER_FETCHED",
+					data: userResponse,
+				});
 			},
 			{
 				detail: {
@@ -81,8 +80,8 @@ export const meRoutes = () =>
 					security: [{ bearerAuth: [] }],
 				},
 				response: {
-					200: formatResponseSchema(MeResponseSchema),
-					401: ErrorResponseSchema,
+					200: makeSuccessEnvelopeSchema(UserSchema),
+					401: makeErrorEnvelopeSchema(),
 				},
 			},
 		);
