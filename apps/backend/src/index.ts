@@ -4,9 +4,10 @@ import swagger from "@elysiajs/swagger";
 import { Elysia } from "elysia";
 import { isOriginAllowed } from "./cors";
 import { OpenAPI } from "./lib/open-api";
-import { openAPIHandler, rpcHandler } from "./orpc";
+import { meRoutes } from "./modules/me";
 
-const app = new Elysia()
+const app = new Elysia({ prefix: "/api" })
+	// Core
 	.use(
 		swagger({
 			documentation: {
@@ -56,36 +57,11 @@ const app = new Elysia()
 			},
 		},
 	)
-	// Orpc
-	.all("/orpc/*", async ({ request }: { request: Request }) => {
-		const { response } = await openAPIHandler.handle(request, {
-			prefix: "/orpc",
-			context: {
-				headers: request.headers,
-			},
-		});
-
-		return response ?? new Response("Not Found", { status: 404 });
-	})
-	// RPC
-	.all(
-		"/rpc/*",
-		async ({ request }: { request: Request }) => {
-			const { response } = await rpcHandler.handle(request, {
-				prefix: "/rpc",
-				context: {
-					headers: request.headers,
-				},
-			});
-
-			return response ?? new Response("Not Found", { status: 404 });
-		},
-		{
-			parse: "none",
-		},
-	)
+	.use(meRoutes())
 	.listen(3000);
 
 console.log(
 	`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`,
 );
+
+export type App = typeof app;

@@ -2,22 +2,20 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
+    "baseUrl": ".",
     "paths": {
-      "~/*": [
-        "./src/*"
-      ],
-      "~components/*": [
-        "./src/components/*"
-      ],
-      "~lib/*": [
-        "./src/lib/*"
-      ],
-      "@/*": [
-        "./*"
-      ]
+      "~/*": ["./src/*"],
+      "~components/*": ["./src/components/*"],
+      "~lib/*": ["./src/lib/*"],
+      "@/*": ["./*"]
     },
     "declaration": false
   },
+  "references": [
+    {
+      "path": "../backend"
+    }
+  ],
   "include": [
     "**/*.ts",
     "**/*.tsx",

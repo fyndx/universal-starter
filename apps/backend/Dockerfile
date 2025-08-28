@@ -15,7 +15,7 @@ COPY packages/ ./packages/
 # Copy app package.json files
 COPY apps/backend/package.json ./apps/backend/
 COPY apps/frontend/package.json ./apps/frontend/
-COPY packages/orpc-client/package.json ./packages/orpc-client/
+COPY packages/shared/package.json ./packages/shared/
 COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile
 
