@@ -1,27 +1,33 @@
 {
-  "name": "universal-starter",
-  "private": true,
-  "workspaces": {
-    "packages": [
-      "apps/*",
-      "packages/*"
-    ],
-    "catalogs": {
-      "validation": {
-        "zod": "^4.0.17"
-      }
-    }
-  },
-  "scripts": {
-    "dev": "bun run --filter './apps/*' dev",
-    "android": "bun run --filter './apps/frontend' android",
-    "ios": "bun run --filter './apps/frontend' ios",
-    "web": "bun run --filter './apps/frontend' web"
-  },
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "engines": {
-    "bun": ">=1.0.0"
-  }
+	"name": "universal-starter",
+	"private": true,
+	"workspaces": {
+		"packages": [
+			"apps/*",
+			"packages/*"
+		],
+		"catalogs": {
+			"validation": {
+				"zod": "^4.0.17"
+			},
+			"config": {
+				"@biomejs/biome": "2.2.0"
+			}
+		}
+	},
+	"scripts": {
+		"dev": "bun run --filter './apps/*' dev",
+		"android": "bun run --filter './apps/frontend' android",
+		"ios": "bun run --filter './apps/frontend' ios",
+		"web": "bun run --filter './apps/frontend' web"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "catalog:config",
+		"@types/bun": "latest",
+		"lefthook": "^1.12.3",
+		"ultracite": "5.2.4"
+	},
+	"engines": {
+		"bun": ">=1.0.0"
+	}
 }
