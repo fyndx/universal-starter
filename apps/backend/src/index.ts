@@ -1,8 +1,9 @@
-import { auth } from "@/src/lib/auth";
 import cors from "@elysiajs/cors";
 import swagger from "@elysiajs/swagger";
 import { Elysia } from "elysia";
+import { auth } from "@/src/lib/auth";
 import { isOriginAllowed } from "./cors";
+import { instrumentation } from "./lib/instrumentation";
 import { OpenAPI } from "./lib/open-api";
 import { meRoutes } from "./modules/me";
 
@@ -17,6 +18,7 @@ const app = new Elysia({ prefix: "/api" })
 			},
 		}),
 	)
+	.use(instrumentation)
 	.use(
 		cors({
 			origin: (request: Request) => {
