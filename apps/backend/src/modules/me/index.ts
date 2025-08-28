@@ -77,7 +77,6 @@ export const meRoutes = () =>
 					tags: ["User"],
 					summary: "Get current user profile",
 					description: "Retrieves the authenticated user's profile information",
-					security: [{ bearerAuth: [] }],
 				},
 				response: {
 					200: makeSuccessEnvelopeSchema(UserSchema),

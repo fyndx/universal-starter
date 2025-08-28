@@ -22,7 +22,7 @@ export const requireAuth = () =>
 				throw new Response(JSON.stringify(envelope), {
 					status: status as number,
 					headers: {
-						"Content-Type": "application/problem+json, charset=utf-8",
+						"Content-Type": "application/problem+json",
 						"www-authenticate": 'Bearer realm="api"',
 					},
 				});
@@ -52,7 +52,7 @@ export const requireRole = (roles: string[]) =>
 				throw new Response(JSON.stringify(envelope), {
 					status: status as number,
 					headers: {
-						"Content-Type": "application/problem+json, charset=utf-8",
+						"Content-Type": "application/problem+json",
 					},
 				});
 			}

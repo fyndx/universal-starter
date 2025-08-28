@@ -1,8 +1,8 @@
+import { prisma } from "@/src/lib/db";
 import { expo } from "@better-auth/expo";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { admin, openAPI } from "better-auth/plugins";
-import { prisma } from "@/src/lib/db";
 import { emailService } from "./email/email-service";
 
 export const auth = betterAuth({
@@ -42,5 +42,8 @@ export const auth = betterAuth({
 			sameSite: "none",
 			secure: true,
 		},
+	},
+	telemetry: {
+		enabled: false,
 	},
 });
