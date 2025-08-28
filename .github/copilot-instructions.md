@@ -69,7 +69,7 @@ type ButtonProps = VariantProps<typeof buttonVariants> & PressableProps;
 - **API Integration**: Models handle API calls with observable state for loading, success, and error states. Methods should return `Promise<void>` and update observable status instead of returning boolean values
 - **Side Effects**: Models should handle all side effects including toast notifications, navigation, and form resets. Keep containers focused purely on UI interactions
 - **Performance**: Legend State provides fine-grained reactivity with minimal re-renders
-- **No Hooks**: Avoid using React hooks; use Legend State observables directly for state management
+- **No Hooks**: Avoid using React hooks; use Legend State observables directly for state management. Only exception is better auth hooks
 
 Example model pattern:
 
@@ -261,6 +261,8 @@ npm run reset-project      # Reset to blank starter
 
 ### Accessibility (a11y)
 
+Note: Items referencing HTML elements/ARIA apply to the Web build. For iOS/Android, use React Native accessibility props (accessibilityRole, accessibilityLabel, accessibilityState, etc.).
+
 - Don't use `accessKey` attribute on any HTML element.
 - Don't set `aria-hidden="true"` on focusable elements.
 - Don't add ARIA roles, states, and properties to elements that don't support them.
@@ -389,7 +391,7 @@ npm run reset-project      # Reset to blank starter
 - Don't have unused variables.
 - Make sure void (self-closing) elements don't have children.
 - Don't return a value from a function with the return type 'void'
-- Use isNaN() when checking for NaN.
+- Use Number.isNaN() when checking for NaN.
 - Make sure "for" loop update clauses move the counter in the right direction.
 - Make sure typeof expressions are compared to valid values.
 - Make sure generator functions contain yield.
@@ -429,20 +431,18 @@ npm run reset-project      # Reset to blank starter
 
 ### TypeScript Best Practices
 
-- Don't use TypeScript enums.
+- Prefer union string/number literals over TypeScript enums.
 - Don't export imported variables.
 - Don't add type annotations to variables, parameters, and class properties that are initialized with literal expressions.
-- Don't use TypeScript namespaces.
+- Avoid TypeScript namespaces. Prefer modules/ESM.
 - Don't use non-null assertions with the `!` postfix operator.
 - Don't use parameter properties in class constructors.
 - Don't use user-defined types.
 - Use `as const` instead of literal types and type annotations.
 - Use either `T[]` or `Array<T>` consistently.
-- Initialize each enum member value explicitly.
+- Legacy-only: if enums exist, ensure members are literal values with explicit initializers; avoid `const enum`.
 - Use `export type` for types.
 - Use `import type` for types.
-- Make sure all enum members are literal values.
-- Don't use TypeScript const enum.
 - Don't declare empty interfaces.
 - Don't let variables evolve into any type through reassignments.
 - Don't use the any type.
@@ -450,7 +450,7 @@ npm run reset-project      # Reset to blank starter
 - Don't use implicit any type on variable declarations.
 - Don't merge interfaces and classes unsafely.
 - Don't use overload signatures that aren't next to each other.
-- Use the namespace keyword instead of the module keyword to declare TypeScript namespaces.
+- Legacy/ambient types only: when a namespace is unavoidable in .d.ts, use the `namespace` keyword (not `module`).
 
 ### Style and Consistency
 

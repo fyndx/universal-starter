@@ -1,5 +1,5 @@
-import { PrismaClient } from "@/prisma/generated/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
+import { PrismaClient } from "@/prisma/generated/client";
 
 export const prisma = new PrismaClient({
 	log:

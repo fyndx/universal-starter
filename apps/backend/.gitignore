@@ -44,4 +44,4 @@ package-lock.json
 
 # prisma
 prisma/*/**.d.ts
-prisma/generated/client/*
+prisma/generated/*

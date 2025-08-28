@@ -1,6 +1,7 @@
 {
 	"compilerOptions": {
 		"composite": true /* Enable constraints that allow a TypeScript project to be used with project references. */,
+		"declaration": true,
 
 		"paths": {
 			"@/*": ["./*"],
@@ -12,7 +13,6 @@
 		"moduleDetection": "force",
 		"jsx": "react-jsx",
 		"allowJs": true,
-		"declaration": true,
 
 		// Bundler mode
 		"allowImportingTsExtensions": true,
