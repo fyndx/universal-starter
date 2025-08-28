@@ -399,7 +399,7 @@ Note: Items referencing HTML elements/ARIA apply to the Web build. For iOS/Andro
 - Don't use bitwise operators.
 - Don't use expressions where the operation doesn't change the value.
 - Make sure Promise-like statements are handled appropriately.
-- Don't use **dirname and **filename in the global scope.
+- Don't use __dirname and __filename in the global scope.
 - Prevent import cycles.
 - Don't use configured elements.
 - Don't hardcode sensitive data like API keys and tokens.
@@ -437,7 +437,7 @@ Note: Items referencing HTML elements/ARIA apply to the Web build. For iOS/Andro
 - Avoid TypeScript namespaces. Prefer modules/ESM.
 - Don't use non-null assertions with the `!` postfix operator.
 - Don't use parameter properties in class constructors.
-- Don't use user-defined types.
+- Prefer inferred types; when aliases are needed, use `export type` with precise, composable definitions. Avoid unnecessary type assertions.
 - Use `as const` instead of literal types and type annotations.
 - Use either `T[]` or `Array<T>` consistently.
 - Legacy-only: if enums exist, ensure members are literal values with explicit initializers; avoid `const enum`.
