@@ -26,10 +26,9 @@
         "@opentelemetry/exporter-trace-otlp-proto": "^0.203.0",
         "@opentelemetry/sdk-trace-node": "^2.0.1",
         "@plunk/node": "^3.0.3",
-        "@prisma/client": "^6.15.0",
-        "@prisma/extension-accelerate": "^2.0.1",
         "@readme/http-status-codes": "^9.0.4",
         "@sinclair/typebox": "^0.34.40",
+        "@universal/db": "workspace:*",
         "better-auth": "^1.3.7",
         "bullmq": "^5.58.2",
         "elysia": "^1.3.20",
@@ -43,9 +42,7 @@
         "zod": "catalog:validation",
       },
       "devDependencies": {
-        "@biomejs/biome": "catalog:devDeps",
         "bun-types": "latest",
-        "prisma": "^6.15.0",
         "typescript": "catalog:devDeps",
       },
     },
@@ -127,12 +124,26 @@
       },
       "devDependencies": {
         "@babel/core": "^7.25.2",
-        "@biomejs/biome": "catalog:devDeps",
         "@types/react": "~19.0.10",
         "elysia": "^1.3.20",
         "eslint": "^9.25.0",
         "eslint-config-expo": "~9.2.0",
         "typescript": "catalog:devDeps",
+      },
+    },
+    "packages/db": {
+      "name": "@universal/db",
+      "dependencies": {
+        "@prisma/client": "^6.15.0",
+        "@prisma/extension-accelerate": "^2.0.1",
+      },
+      "devDependencies": {
+        "@types/bun": "latest",
+        "@universal/typescript-config": "workspace:*",
+        "prisma": "^6.15.0",
+      },
+      "peerDependencies": {
+        "typescript": "^5",
       },
     },
     "packages/shared": {
@@ -143,6 +154,9 @@
       "peerDependencies": {
         "typescript": "catalog:devDeps",
       },
+    },
+    "tools/typescript": {
+      "name": "@universal/typescript-config",
     },
   },
   "catalogs": {
@@ -1030,6 +1044,10 @@
     "@universal/app": ["@universal/app@workspace:apps/frontend"],
 
     "@universal/backend": ["@universal/backend@workspace:apps/backend"],
+
+    "@universal/db": ["@universal/db@workspace:packages/db"],
+
+    "@universal/typescript-config": ["@universal/typescript-config@workspace:tools/typescript"],
 
     "@unrs/resolver-binding-android-arm-eabi": ["@unrs/resolver-binding-android-arm-eabi@1.11.1", "", { "os": "android", "cpu": "arm" }, "sha512-ppLRUgHVaGRWUx0R0Ut06Mjo9gBaBkg3v/8AxusGLhsIotbBLuRk51rAzqLC8gq6NyyAojEXglNjzf6R948DNw=="],
 
@@ -2908,6 +2926,8 @@
     "@typescript-eslint/typescript-estree/minimatch": ["minimatch@9.0.5", "", { "dependencies": { "brace-expansion": "^2.0.1" } }, "sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow=="],
 
     "@typescript-eslint/typescript-estree/semver": ["semver@7.7.2", "", { "bin": { "semver": "bin/semver.js" } }, "sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA=="],
+
+    "@universal/db/@types/bun": ["@types/bun@1.2.21", "", { "dependencies": { "bun-types": "1.2.21" } }, "sha512-NiDnvEqmbfQ6dmZ3EeUO577s4P5bf4HCTXtI6trMc6f6RzirY5IrF3aIookuSpyslFzrnvv2lmEWv5HyC1X79A=="],
 
     "@vitest/runner/pathe": ["pathe@2.0.3", "", {}, "sha512-WUjGcAqP1gQacoQe+OBJsFA7Ld4DyXuUIjZ5cc75cLHvJ7dtNsTugphxIADwspS+AraAUePCKrSVtPLFj/F88w=="],
 

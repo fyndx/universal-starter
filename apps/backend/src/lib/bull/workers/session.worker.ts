@@ -1,5 +1,5 @@
+import { prisma } from '@src/infra/db';
 import type { Job } from 'bullmq';
-import { prisma } from '../../db';
 import { makeWorker } from '..';
 import { JOBS, QUEUES } from '../names';
 

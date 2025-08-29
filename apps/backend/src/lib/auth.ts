@@ -1,8 +1,8 @@
 import { expo } from '@better-auth/expo';
+import { prisma } from '@src/infra/db';
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { admin, openAPI } from 'better-auth/plugins';
-import { prisma } from '@/src/lib/db';
 import { emailService } from './email/email-service';
 import { redisConnection as redis } from './redis';
 

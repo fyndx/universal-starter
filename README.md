@@ -1,12 +1,14 @@
 # Universal Starter (Expo + Elysia)
 
 A full-stack universal starter template with Bun workspaces featuring:
+
 - **Frontend**: Universal Expo app (iOS, Android, Web)
 - **Backend**: Elysia server with Bun runtime
 
 ## Stack
 
 ### Frontend
+
 - [Expo Router](https://docs.expo.dev/routing/introduction/) - File-based routing
 - [NativeWind](https://www.nativewind.dev/) - Tailwind CSS for React Native
 - [Better Auth](https://github.com/Better-Auth) - Authentication
@@ -14,6 +16,7 @@ A full-stack universal starter template with Bun workspaces featuring:
 - [react-native-reusables](https://github.com/reusables) - Accessible UI components
 
 ### Backend
+
 - [Elysia](https://elysiajs.com/) - TypeScript HTTP framework
 - [Bun](https://bun.sh/) - JavaScript runtime & toolchain
 
@@ -31,6 +34,7 @@ A full-stack universal starter template with Bun workspaces featuring:
 ## Getting Started
 
 ### Prerequisites
+
 - [Bun](https://bun.sh/) >= 1.0.0
 - [Node.js](https://nodejs.org/) >= 18
 - [Expo CLI](https://docs.expo.dev/get-started/installation/)
@@ -73,6 +77,10 @@ bun workspace expo ios
 # Android
 bun workspace expo android
 ```
+
+# Monorepo Inspiration
+
+1. https://github.com/nktnet1/rt-stack
 
 ## License
 
