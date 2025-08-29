@@ -12,20 +12,27 @@ const CORS_CONFIG = {
 };
 
 const isOriginAllowed = (origin: string): boolean => {
-  // Check static origins
-  const isOriginInList = CORS_CONFIG.allowedOrigins.some((allowedOrigin) => {
-    if (origin.includes(allowedOrigin)) {
-      return true;
-    }
+  if (!origin || origin === 'null') {
     return false;
-  });
+  }
+  // Normalize and validate
+  let normalized = origin;
+  try {
+    normalized = new URL(origin).origin;
+  } catch {
+    return false;
+  }
+  // Check static origins
+  const isOriginInList = CORS_CONFIG.allowedOrigins.includes(normalized);
 
   if (isOriginInList) {
     return true;
   }
 
   // Check pattern-based origins
-  return CORS_CONFIG.allowedPatterns.some((pattern) => pattern.test(origin));
+  return CORS_CONFIG.allowedPatterns.some((pattern) =>
+    pattern.test(normalized)
+  );
 };
 
 export const validateOrigin = (origin: string): boolean => {

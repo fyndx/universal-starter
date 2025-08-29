@@ -56,6 +56,8 @@ export const auth = betterAuth({
         await redis.set(key, JSON.stringify(value));
       }
     },
-    delete: async (key) => (await redis.del(key)).toString(),
+    delete: async (key) => {
+      await redis.del(key);
+    },
   },
 });

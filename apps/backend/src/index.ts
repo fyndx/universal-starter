@@ -10,6 +10,7 @@ import { validateOrigin } from './cors';
 import { instrumentation } from './lib/instrumentation';
 import { OpenAPI } from './lib/open-api';
 import { meRoutes } from './modules/me';
+import { etag } from '@bogeychan/elysia-etag';
 
 const PORT = 3000;
 
@@ -30,8 +31,8 @@ const app = new Elysia({ prefix: '/api' })
   //     },
   //   })
   // )
-  .use(logixlysia())
   .use(instrumentation)
+  .use(logixlysia())
   .use(
     swagger({
       documentation: {
@@ -42,7 +43,14 @@ const app = new Elysia({ prefix: '/api' })
     })
   )
   .use(serverTiming())
-  .use(staticPlugin())
+  .use(
+    staticPlugin({
+      assets: 'public',
+      prefix: '/static',
+      headers: { 'Cache-Control': 'public, max-age=31536000, immutable' },
+    })
+  )
+  .use(etag())
   .use(
     cors({
       origin: (request: Request) => {
