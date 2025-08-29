@@ -1,67 +1,97 @@
-import { auth } from "@/src/lib/auth";
-import cors from "@elysiajs/cors";
-import swagger from "@elysiajs/swagger";
-import { Elysia } from "elysia";
-import { isOriginAllowed } from "./cors";
-import { OpenAPI } from "./lib/open-api";
-import { meRoutes } from "./modules/me";
+// import { logger } from '@bogeychan/elysia-logger';
+import cors from '@elysiajs/cors';
+import { serverTiming } from '@elysiajs/server-timing';
+import { staticPlugin } from '@elysiajs/static';
+import swagger from '@elysiajs/swagger';
+import { Elysia } from 'elysia';
+import logixlysia from 'logixlysia';
+import { auth } from '@/src/lib/auth';
+import { validateOrigin } from './cors';
+import { instrumentation } from './lib/instrumentation';
+import { OpenAPI } from './lib/open-api';
+import { meRoutes } from './modules/me';
+import { etag } from '@bogeychan/elysia-etag';
 
-const app = new Elysia({ prefix: "/api" })
-	// Core
-	.use(
-		swagger({
-			documentation: {
-				components: await OpenAPI.components,
-				paths: await OpenAPI.getPaths(),
-				tags: [{ name: "App", description: "General endpoints" }],
-			},
-		}),
-	)
-	.use(
-		cors({
-			origin: (request: Request) => {
-				// const ALLOWED_ORIGINS = [
-				// 	"http://localhost:8081",
-				// 	// /^https:\/\/.*\.expo\.app$/,
-				// 	"https://*.expo.app",
-				// ];
+const PORT = 3000;
 
-				const origin = request.headers.get("origin") || "";
-				return isOriginAllowed(origin);
-			},
-			methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-			credentials: true,
-			allowedHeaders: ["Content-Type", "Authorization"],
-		}),
-	)
-	.mount(auth.handler)
-	.get("/", () => "Hello Elysia", {
-		detail: {
-			tags: ["App"],
-		},
-	})
-	.get(
-		"/health",
-		() => {
-			return {
-				uptime: process.uptime(),
-				message: "OK",
-				timestamp: Date.now(),
-			};
-		},
-		{
-			detail: {
-				tags: ["App"],
-				description: "Health check endpoint",
-				summary: "Health Check",
-			},
-		},
-	)
-	.use(meRoutes())
-	.listen(3000);
+const app = new Elysia({ prefix: '/api' })
+  // Core
+  // TODO: Decide logixlysia or logger later
+  // .use(
+  //   logger({
+  //     transport: {
+  //       targets: [
+  //         {
+  //           target: 'pino-pretty',
+  //           options: {
+  //             colorize: true,
+  //           },
+  //         },
+  //       ],
+  //     },
+  //   })
+  // )
+  .use(instrumentation)
+  .use(logixlysia())
+  .use(
+    swagger({
+      documentation: {
+        components: await OpenAPI.components,
+        paths: await OpenAPI.getPaths(),
+        tags: [{ name: 'App', description: 'General endpoints' }],
+      },
+    })
+  )
+  .use(serverTiming())
+  .use(
+    staticPlugin({
+      assets: 'public',
+      prefix: '/static',
+      headers: { 'Cache-Control': 'public, max-age=31536000, immutable' },
+    })
+  )
+  .use(etag())
+  .use(
+    cors({
+      origin: (request: Request) => {
+        // const ALLOWED_ORIGINS = [
+        // 	"http://localhost:8081",
+        // 	// /^https:\/\/.*\.expo\.app$/,
+        // 	"https://*.expo.app",
+        // ];
 
-console.log(
-	`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`,
-);
+        const origin = request.headers.get('origin') || '';
+        return validateOrigin(origin);
+      },
+      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+      credentials: true,
+      allowedHeaders: ['Content-Type', 'Authorization'],
+    })
+  )
+  .mount(auth.handler)
+  .get('/', () => 'Hello Elysia', {
+    detail: {
+      tags: ['App'],
+    },
+  })
+  .get(
+    '/health',
+    () => {
+      return {
+        uptime: process.uptime(),
+        message: 'OK',
+        timestamp: Date.now(),
+      };
+    },
+    {
+      detail: {
+        tags: ['App'],
+        description: 'Health check endpoint',
+        summary: 'Health Check',
+      },
+    }
+  )
+  .use(meRoutes())
+  .listen(PORT);
 
 export type App = typeof app;
