@@ -1,10 +1,12 @@
+// import { logger } from '@bogeychan/elysia-logger';
 import cors from '@elysiajs/cors';
 import { serverTiming } from '@elysiajs/server-timing';
 import { staticPlugin } from '@elysiajs/static';
 import swagger from '@elysiajs/swagger';
 import { Elysia } from 'elysia';
+import logixlysia from 'logixlysia';
 import { auth } from '@/src/lib/auth';
-import { isOriginAllowed } from './cors';
+import { validateOrigin } from './cors';
 import { instrumentation } from './lib/instrumentation';
 import { OpenAPI } from './lib/open-api';
 import { meRoutes } from './modules/me';
@@ -13,6 +15,23 @@ const PORT = 3000;
 
 const app = new Elysia({ prefix: '/api' })
   // Core
+  // TODO: Decide logixlysia or logger later
+  // .use(
+  //   logger({
+  //     transport: {
+  //       targets: [
+  //         {
+  //           target: 'pino-pretty',
+  //           options: {
+  //             colorize: true,
+  //           },
+  //         },
+  //       ],
+  //     },
+  //   })
+  // )
+  .use(logixlysia())
+  .use(instrumentation)
   .use(
     swagger({
       documentation: {
@@ -22,7 +41,6 @@ const app = new Elysia({ prefix: '/api' })
       },
     })
   )
-  .use(instrumentation)
   .use(serverTiming())
   .use(staticPlugin())
   .use(
@@ -35,9 +53,9 @@ const app = new Elysia({ prefix: '/api' })
         // ];
 
         const origin = request.headers.get('origin') || '';
-        return isOriginAllowed(origin);
+        return validateOrigin(origin);
       },
-      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
       credentials: true,
       allowedHeaders: ['Content-Type', 'Authorization'],
     })
@@ -67,9 +85,5 @@ const app = new Elysia({ prefix: '/api' })
   )
   .use(meRoutes())
   .listen(PORT);
-
-console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
-);
 
 export type App = typeof app;

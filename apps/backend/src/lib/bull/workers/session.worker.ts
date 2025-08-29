@@ -15,7 +15,9 @@ type PruneExpiredJobResult = {
 const processPruneExpired = async (
   job: Job<PruneExpiredJobData, PruneExpiredJobResult>
 ) => {
-  const { batchSize = 500 } = job.data;
+  const raw = Number(job.data?.batchSize);
+  const batchSize =
+    Number.isFinite(raw) && raw > 0 ? Math.min(Math.floor(raw), 1000) : 500;
   const now = new Date();
 
   let totalDeleted = 0;
@@ -29,6 +31,7 @@ const processPruneExpired = async (
           lt: now,
         },
       },
+      orderBy: { expiresAt: 'asc' },
       select: {
         id: true,
       },
@@ -41,7 +44,7 @@ const processPruneExpired = async (
 
     const ids = expiredSessions.map((session) => session.id);
 
-    await prisma.session.deleteMany({
+    const { count } = await prisma.session.deleteMany({
       where: {
         id: {
           in: ids,
@@ -49,10 +52,10 @@ const processPruneExpired = async (
       },
     });
 
-    totalDeleted += expiredSessions.length;
+    totalDeleted += count;
     batches++;
 
-    if (expiredSessions.length < batchSize) {
+    if (count < batchSize) {
       break;
     }
   }
@@ -63,16 +66,15 @@ const processPruneExpired = async (
   };
 };
 
-const jobHandlers: Record<string, (job: Job) => Promise<unknown>> = {
-  [JOBS.SESSION.PRUNE_EXPIRED]: processPruneExpired,
-};
-
 const processor = async (job: Job) => {
-  const handler = jobHandlers[job.name];
-  if (!handler) {
-    throw new Error(`Unknown job: ${job.name}`);
+  switch (job.name) {
+    case JOBS.SESSION.PRUNE_EXPIRED:
+      return await processPruneExpired(
+        job as Job<PruneExpiredJobData, PruneExpiredJobResult>
+      );
+    default:
+      throw new Error(`Unknown job: ${job.name}`);
   }
-  return await handler(job);
 };
 
 export const sessionWorker = makeWorker({

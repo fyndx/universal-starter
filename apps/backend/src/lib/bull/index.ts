@@ -5,6 +5,7 @@ import {
   type QueueEventsOptions,
   type QueueOptions,
   Worker,
+  type WorkerOptions,
 } from 'bullmq';
 import { createRedisClient, redisConnection } from '../redis';
 
