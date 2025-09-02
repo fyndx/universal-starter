@@ -1,6 +1,7 @@
 import { Redis, type RedisOptions } from 'ioredis';
 
-// Create a new Redis client
+// Creates a configurable Redis client instance with default connection from REDIS_URL.
+// Use this when you need custom Redis configurations instead of the singleton client.
 export const createRedisClient = (options: RedisOptions = {}) => {
   const client = new Redis(process.env.REDIS_URL as string, options);
   return client;

@@ -22,6 +22,7 @@
     "@readme/http-status-codes": "^9.0.4",
     "@sinclair/typebox": "^0.34.40",
     "@universal/db": "workspace:*",
+    "@universal/logger": "workspace:*",
     "@universal/queue-kit": "workspace:*",
     "@universal/shared": "workspace:*",
     "better-auth": "^1.3.7",

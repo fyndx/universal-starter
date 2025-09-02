@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "@universal/db": "workspace:*",
+    "@universal/logger": "workspace:*",
     "@universal/queue-kit": "workspace:*",
     "@universal/shared": "workspace:*"
   },
@@ -13,6 +14,6 @@
     "bullmq": "^5.58.4"
   },
   "peerDependencies": {
-    "typescript": "^5"
+    "typescript": "catalog:devDeps"
   }
 }

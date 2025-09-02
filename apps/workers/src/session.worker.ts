@@ -1,10 +1,10 @@
 import { prisma } from '@universal/db';
 import { makeWorker } from '@universal/queue-kit';
-import { JOBS, QUEUES } from '@universal/shared/queue';
 import type {
   PruneExpiredJobData,
   PruneExpiredJobResult,
-} from '@universal/shared/queue/session.queue.types.ts';
+} from '@universal/shared/queue';
+import { JOBS, QUEUES } from '@universal/shared/queue';
 import type { Job } from 'bullmq';
 
 const processPruneExpired = async (
