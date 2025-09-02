@@ -1,5 +1,5 @@
 {
   "extends": "@universal/typescript-config/internal-package.json",
-  "include": ["prisma"],
+  "include": ["prisma", "src"],
   "exclude": ["node_modules"]
 }

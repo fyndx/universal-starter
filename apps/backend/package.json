@@ -22,6 +22,8 @@
     "@readme/http-status-codes": "^9.0.4",
     "@sinclair/typebox": "^0.34.40",
     "@universal/db": "workspace:*",
+    "@universal/queue-kit": "workspace:*",
+    "@universal/shared": "workspace:*",
     "better-auth": "^1.3.7",
     "bullmq": "^5.58.2",
     "elysia": "^1.3.20",
