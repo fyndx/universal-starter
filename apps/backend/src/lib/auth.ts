@@ -1,10 +1,10 @@
 import { expo } from '@better-auth/expo';
 import { prisma } from '@src/infra/db';
+import { redisClient as redis } from '@universal/redis';
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { admin, openAPI } from 'better-auth/plugins';
 import { emailService } from './email/email-service';
-import { redisConnection as redis } from './redis';
 
 export const auth = betterAuth({
   plugins: [expo(), openAPI(), admin()],

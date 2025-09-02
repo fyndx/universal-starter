@@ -4,9 +4,9 @@ import cors from '@elysiajs/cors';
 import { serverTiming } from '@elysiajs/server-timing';
 import { staticPlugin } from '@elysiajs/static';
 import swagger from '@elysiajs/swagger';
-import { logger } from '@universal/logger';
+import { auth } from '@src/lib/auth';
+import { elysiaLogger } from '@universal/logger';
 import { Elysia } from 'elysia';
-import { auth } from '@/src/lib/auth';
 import { validateOrigin } from './cors';
 import { instrumentation } from './lib/instrumentation';
 import { OpenAPI } from './lib/open-api';
@@ -16,7 +16,7 @@ const PORT = 3000;
 
 const app = new Elysia({ prefix: '/api' })
   // Core
-  .use(wrap(logger as pino.Logger, {}))
+  .use(wrap(elysiaLogger as pino.Logger, {}))
   .use(instrumentation)
   .use(
     swagger({
