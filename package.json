@@ -4,8 +4,7 @@
   "workspaces": {
     "packages": [
       "apps/*",
-      "packages/*",
-      "tools/*"
+      "packages/*"
     ],
     "catalogs": {
       "validation": {

@@ -1,0 +1,9 @@
+FROM oven/bun AS base
+WORKDIR /app
+
+# copy only dependency manifests first for better caching
+COPY bun.lockb package.json ./
+COPY packages/*/package.json packages/*/
+COPY apps/*/package.json apps/*/
+
+RUN bun install --frozen-lockfile

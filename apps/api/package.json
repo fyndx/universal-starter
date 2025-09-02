@@ -1,5 +1,5 @@
 {
-  "name": "@universal/backend",
+  "name": "@universal/api",
   "version": "1.0.50",
   "private": true,
   "scripts": {
