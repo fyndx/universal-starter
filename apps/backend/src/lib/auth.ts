@@ -1,8 +1,8 @@
 import { expo } from '@better-auth/expo';
+import { prisma } from '@src/infra/db';
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { admin, openAPI } from 'better-auth/plugins';
-import { prisma } from '@/src/lib/db';
 import { emailService } from './email/email-service';
 import { redisConnection as redis } from './redis';
 
@@ -48,12 +48,15 @@ export const auth = betterAuth({
     enabled: false,
   },
   secondaryStorage: {
-    get: async (key) => await redis.get(key),
+    get: async (key) => {
+      const value = await redis.get(key);
+      return value ? value : null;
+    },
     set: async (key, value, ttl) => {
       if (ttl) {
-        await redis.set(key, JSON.stringify(value), 'EX', ttl);
+        await redis.set(key, value, 'EX', ttl);
       } else {
-        await redis.set(key, JSON.stringify(value));
+        await redis.set(key, value);
       }
     },
     delete: async (key) => {

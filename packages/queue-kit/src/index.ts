@@ -1,3 +1,4 @@
+import { createRedisClient, redisClient } from '@universal/redis';
 import {
   type Job,
   Queue,
@@ -7,7 +8,6 @@ import {
   Worker,
   type WorkerOptions,
 } from 'bullmq';
-import { createRedisClient, redisConnection } from '../redis';
 
 export function makeQueue<TData>({
   name,
@@ -17,7 +17,14 @@ export function makeQueue<TData>({
   config?: QueueOptions;
 }) {
   const queue = new Queue<TData>(name, {
-    connection: redisConnection,
+    defaultJobOptions: {
+      attempts: 10,
+      backoff: {
+        type: 'exponential',
+        delay: 5000,
+      },
+    },
+    connection: redisClient,
     ...config,
   });
   return queue;
@@ -32,10 +39,11 @@ export function makeWorker<TData, TReturn, N extends string = string>({
   processor: (job: Job<TData>) => Promise<TReturn>;
   config?: WorkerOptions;
 }) {
-  return new Worker<TData, TReturn, N>(name, processor, {
+  const worker = new Worker<TData, TReturn, N>(name, processor, {
     connection: createRedisClient({ maxRetriesPerRequest: null }),
     ...config,
   });
+  return worker;
 }
 
 export function makeQueueEvent({

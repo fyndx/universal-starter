@@ -1,16 +1,11 @@
+import { prisma } from '@universal/db';
+import { makeWorker } from '@universal/queue-kit';
+import type {
+  PruneExpiredJobData,
+  PruneExpiredJobResult,
+} from '@universal/shared/queue';
+import { JOBS, QUEUES } from '@universal/shared/queue';
 import type { Job } from 'bullmq';
-import { prisma } from '../../db';
-import { makeWorker } from '..';
-import { JOBS, QUEUES } from '../names';
-
-type PruneExpiredJobData = {
-  batchSize: number;
-};
-
-type PruneExpiredJobResult = {
-  deleted: number;
-  batches: number;
-};
 
 const processPruneExpired = async (
   job: Job<PruneExpiredJobData, PruneExpiredJobResult>
@@ -68,7 +63,7 @@ const processPruneExpired = async (
 
 const processor = async (job: Job) => {
   switch (job.name) {
-    case JOBS.SESSION.PRUNE_EXPIRED:
+    case JOBS.session.pruneExpired:
       return await processPruneExpired(
         job as Job<PruneExpiredJobData, PruneExpiredJobResult>
       );
@@ -78,6 +73,6 @@ const processor = async (job: Job) => {
 };
 
 export const sessionWorker = makeWorker({
-  name: QUEUES.SESSION,
+  name: QUEUES.session,
   processor,
 });

@@ -1,4 +1,4 @@
-import { prisma } from "@src/lib/db";
-import type Elysia from "elysia";
+import { prisma } from '@src/infra/db';
+import type Elysia from 'elysia';
 
-export const elysiaDb = (app: Elysia) => app.decorate("db", prisma);
+export const elysiaDb = (app: Elysia) => app.decorate('db', prisma);

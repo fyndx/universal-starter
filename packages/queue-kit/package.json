@@ -1,12 +1,11 @@
 {
-  "name": "@universal/shared",
+  "name": "@universal/queue-kit",
   "module": "src/index.ts",
   "type": "module",
   "private": true,
   "exports": {
     ".": "./src/index.ts",
-    "./queue": "./src/queue/index.ts",
-    "./queue/*": "./src/queue/*"
+    "./*": "./src/*"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -14,5 +13,9 @@
   },
   "peerDependencies": {
     "typescript": "catalog:devDeps"
+  },
+  "dependencies": {
+    "bullmq": "^5.58.4",
+    "@universal/redis": "workspace:*"
   }
 }

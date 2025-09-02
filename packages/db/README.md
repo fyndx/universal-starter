@@ -1,4 +1,4 @@
-# shared
+# db
 
 To install dependencies:
 
