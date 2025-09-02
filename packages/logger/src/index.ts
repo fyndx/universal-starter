@@ -1,5 +1,7 @@
 import { pino } from 'pino';
 
+const LOG_TIME_FORMAT = 'HH:MM:ss'; // 24-hour format with seconds for precise debugging
+
 export const logger = pino({
   level: process.env.LOG_LEVEL || 'info',
   // Use pretty printing in development, structured JSON in production
@@ -8,8 +10,8 @@ export const logger = pino({
       target: 'pino-pretty',
       options: {
         colorize: true,
-        translateTime: 'HH:MM:ss',
-        ignore: 'pid,hostname',
+        translateTime: LOG_TIME_FORMAT,
+        ignore: 'pid',
         messageFormat: true,
         hideObject: false,
       },

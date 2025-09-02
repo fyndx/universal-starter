@@ -11,7 +11,7 @@
  * Set EMAIL_PROVIDER to choose the active provider.
  */
 
-import logger from '@universal/logger';
+import { logger } from '@universal/logger';
 import { getEmailConfig } from './config';
 import {
   NodemailerProvider,
@@ -34,7 +34,7 @@ class EmailService {
       {
         provider: this.config.provider,
       },
-      '💌 Email service initialized with provider:'
+      '💌 Email service initialized with provider'
     );
   }
 
@@ -74,11 +74,16 @@ class EmailService {
   }
 
   private validateOptions(opts: EmailOptions): void {
-    const missing = [];
-    if (!opts.to) {
+    const missing: string[] = [];
+    const hasTo = Array.isArray(opts.to)
+      ? opts.to.length > 0
+      : typeof opts.to === 'string' && opts.to.trim().length > 0;
+    if (!hasTo) {
       missing.push('to');
     }
-    if (!opts.subject) {
+    const hasSubject =
+      typeof opts.subject === 'string' && opts.subject.trim().length > 0;
+    if (!hasSubject) {
       missing.push('subject');
     }
     if (missing.length) {

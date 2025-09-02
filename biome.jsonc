@@ -3,7 +3,19 @@
   "extends": ["ultracite"],
   "json": {
     "parser": {
-      "allowComments": true
+      "allowComments": false,
+      "allowTrailingCommas": false
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.jsonc", "tsconfig*.json", "biome.jsonc"],
+      "json": {
+        "parser": {
+          "allowComments": true,
+          "allowTrailingCommas": true
+        }
+      }
+    }
+  ]
 }
