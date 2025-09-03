@@ -7,13 +7,16 @@ ENV ENVIRONMENT=${ENVIRONMENT}
 # ENV NODE_ENV=production
 
 WORKDIR /app
-
+# Copy package files first for better caching
 COPY bun.lock package.json ./
 COPY packages/ ./packages/
 COPY packages/*/package.json ./packages/
 COPY apps/*/package.json ./apps/
-
+# Install dependencies (this layer will be cached if package files don't change)
 RUN bun install
+
+# Bring in sources after deps cache is established
+COPY . .
 
 # ------------------------
 # 2. Install & Build API
@@ -21,14 +24,12 @@ RUN bun install
 FROM base AS build
 WORKDIR /app
 
-COPY . .
-
 # for serving static files
 # right now no static files to copy, so creating dir
 RUN mkdir -p ./apps/api/public
 
 # install again to ensure local packages are linked
-RUN bun install --ignore-scripts --production
+RUN bun install --ignore-scripts
 # Generate Prisma client
 RUN bun --filter './packages/db' db:generate --no-engine
 

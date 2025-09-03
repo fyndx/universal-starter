@@ -7,18 +7,20 @@ ENV ENVIRONMENT=${ENVIRONMENT}
 WORKDIR /app
 
 COPY bun.lock package.json ./
-COPY packages/ ./packages/
 COPY packages/*/package.json ./packages/
 COPY apps/*/package.json ./apps/
 
 RUN bun install
 
+COPY . .
+
 FROM base AS build
 WORKDIR /app
 
-COPY . .
-
 RUN bun install --ignore-scripts
+# Generate Prisma client
+RUN bun --filter './packages/db' db:generate --no-engine
+
 
 RUN bun run --filter @universal/workers build \
   --compile \

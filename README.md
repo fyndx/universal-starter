@@ -82,6 +82,18 @@ bun workspace expo android
 
 1. https://github.com/nktnet1/rt-stack
 
+# Docker Compose Running
+
+```sh
+docker compose -f docker/docker-compose.dev.yml up --build
+```
+
+**Production**
+
+```sh
+docker compose -f docker/docker-compose.prod.yml up --build -d
+```
+
 ## License
 
 MIT

@@ -8,6 +8,8 @@ build/
 *.tsbuildinfo
 
 # Environment files
+.env
+**/.env
 .env.local
 .env.development.local
 .env.test.local
@@ -34,7 +36,6 @@ Thumbs.db
 .gitignore
 
 # Docker
-Dockerfile*
 .dockerignore
 
 # Logs
