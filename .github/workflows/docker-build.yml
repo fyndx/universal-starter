@@ -4,16 +4,51 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "apps/api/**"
+      - "apps/workers/**"
+      - "packages/**"
+      - ".github/workflows/docker-build.yml"
   pull_request:
     branches:
       - main
+    paths:
+      - "apps/api/**"
+      - "apps/workers/**"
+      - "packages/**"
+      - ".github/workflows/docker-build.yml"
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      api: ${{ steps.changes.outputs.api }}
+      workers: ${{ steps.changes.outputs.workers }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check for changes
+        uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            api:
+              - 'apps/api/**'
+              - 'packages/**'
+              - '.github/workflows/docker-build.yml'
+            workers:
+              - 'apps/workers/**'
+              - 'packages/**'
+              - '.github/workflows/docker-build.yml'
+
   build-api:
+    needs: changes
+    if: ${{ needs.changes.outputs.api == 'true' }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -51,6 +86,8 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
   build-workers:
+    needs: changes
+    if: ${{ needs.changes.outputs.workers == 'true' }}
     runs-on: ubuntu-latest
     permissions:
       contents: read

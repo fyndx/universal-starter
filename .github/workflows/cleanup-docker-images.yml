@@ -1,0 +1,35 @@
+name: Cleanup Old Docker Images
+
+on:
+  schedule:
+    # Run on the 1st day of every month at 2 AM UTC
+    - cron: "0 2 1 * *"
+  workflow_dispatch: # Allow manual trigger
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  cleanup-old-images:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Delete old API package versions
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: ${{ env.IMAGE_NAME }}-api
+          package-type: container
+          min-versions-to-keep: 5
+          delete-only-untagged-versions: false
+
+      - name: Delete old workers package versions
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: ${{ env.IMAGE_NAME }}-workers
+          package-type: container
+          min-versions-to-keep: 5
+          delete-only-untagged-versions: false

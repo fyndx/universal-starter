@@ -1,9 +1,18 @@
+# Shared base image with dependencies installed
 FROM oven/bun AS base
+
+ARG ENVIRONMENT=production
+ENV ENVIRONMENT=${ENVIRONMENT}
+
 WORKDIR /app
 
-# copy only dependency manifests first for better caching
-COPY bun.lockb package.json ./
-COPY packages/*/package.json packages/*/
-COPY apps/*/package.json apps/*/
+# Copy package files first for better caching
+COPY bun.lock package.json ./
+COPY packages/*/package.json ./packages/
+COPY apps/*/package.json ./apps/
 
-RUN bun install --frozen-lockfile
+# Install dependencies (this layer will be cached if package files don't change)
+RUN bun install
+
+# Bring in sources after deps cache is established
+COPY . .
