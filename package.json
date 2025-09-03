@@ -4,15 +4,14 @@
   "workspaces": {
     "packages": [
       "apps/*",
-      "packages/*",
-      "tools/*"
+      "packages/*"
     ],
     "catalogs": {
       "validation": {
         "zod": "^4.0.17"
       },
       "devDeps": {
-        "@biomejs/biome": "2.2.0",
+        "@biomejs/biome": "2.2.2",
         "typescript": "^5.9.2"
       }
     }
@@ -28,7 +27,7 @@
     "@types/bun": "latest",
     "lefthook": "^1.12.3",
     "typescript": "catalog:devDeps",
-    "ultracite": "5.2.4"
+    "ultracite": "5.3.3"
   },
   "engines": {
     "bun": ">=1.0.0"
