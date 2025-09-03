@@ -27,16 +27,17 @@ RUN bun run --filter @universal/workers build \
   --minify-whitespace \
   --minify-syntax \
   --target bun \
-  --outfile workers \
+  --outfile worker \
   ./src/index.ts
 
 FROM gcr.io/distroless/base
 
 WORKDIR /app
 
-COPY --from=build /app/apps/workers/workers workers
+COPY --from=build /app/apps/workers/worker worker
 # Copy .env file to runtime image for Prisma
 COPY --from=build /app/apps/workers/.env* ./
 
 ENV NODE_ENV=production
-CMD [ "./workers" ]
+
+CMD ["./worker"]
