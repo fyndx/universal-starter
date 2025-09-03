@@ -1,38 +1,38 @@
-import { etag } from '@bogeychan/elysia-etag';
-import { type pino, wrap } from '@bogeychan/elysia-logger';
-import cors from '@elysiajs/cors';
-import { serverTiming } from '@elysiajs/server-timing';
-import { staticPlugin } from '@elysiajs/static';
-import swagger from '@elysiajs/swagger';
-import { auth } from '@src/lib/auth';
-import { elysiaLogger } from '@universal/logger';
-import { Elysia } from 'elysia';
-import { validateOrigin } from './cors';
-import { instrumentation } from './lib/instrumentation';
-import { OpenAPI } from './lib/open-api';
-import { meRoutes } from './modules/me';
+import { etag } from "@bogeychan/elysia-etag";
+import { type pino, wrap } from "@bogeychan/elysia-logger";
+import cors from "@elysiajs/cors";
+import { serverTiming } from "@elysiajs/server-timing";
+import { staticPlugin } from "@elysiajs/static";
+import swagger from "@elysiajs/swagger";
+import { validateOrigin } from "@src/cors";
+import { auth } from "@src/lib/auth";
+import { instrumentation } from "@src/lib/instrumentation";
+import { OpenAPI } from "@src/lib/open-api";
+import { meRoutes } from "@src/modules/me";
+import { elysiaLogger } from "@universal/logger";
+import { Elysia } from "elysia";
 
 const PORT = 3000;
 
-const app = new Elysia({ prefix: '/api' })
+const app = new Elysia({ prefix: "/api" })
   // Core
-  .use(wrap(elysiaLogger as pino.Logger, {}))
   .use(instrumentation)
+  .use(wrap(elysiaLogger as pino.Logger, {}))
   .use(
     swagger({
       documentation: {
         components: await OpenAPI.components,
         paths: await OpenAPI.getPaths(),
-        tags: [{ name: 'App', description: 'General endpoints' }],
+        tags: [{ name: "App", description: "General endpoints" }],
       },
     })
   )
   .use(serverTiming())
   .use(
     staticPlugin({
-      assets: 'public',
-      prefix: '/static',
-      headers: { 'Cache-Control': 'public, max-age=31536000, immutable' },
+      assets: "public",
+      prefix: "/static",
+      headers: { "Cache-Control": "public, max-age=31536000, immutable" },
     })
   )
   .use(etag())
@@ -45,34 +45,34 @@ const app = new Elysia({ prefix: '/api' })
         // 	"https://*.expo.app",
         // ];
 
-        const origin = request.headers.get('origin') || '';
+        const origin = request.headers.get("origin") || "";
         return validateOrigin(origin);
       },
-      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+      methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
       credentials: true,
-      allowedHeaders: ['Content-Type', 'Authorization'],
+      allowedHeaders: ["Content-Type", "Authorization"],
     })
   )
   .mount(auth.handler)
-  .get('/', () => 'Hello Elysia', {
+  .get("/", () => "Hello Elysia", {
     detail: {
-      tags: ['App'],
+      tags: ["App"],
     },
   })
   .get(
-    '/health',
+    "/health",
     () => {
       return {
         uptime: process.uptime(),
-        message: 'OK',
+        message: "OK",
         timestamp: Date.now(),
       };
     },
     {
       detail: {
-        tags: ['App'],
-        description: 'Health check endpoint',
-        summary: 'Health Check',
+        tags: ["App"],
+        description: "Health check endpoint",
+        summary: "Health Check",
       },
     }
   )

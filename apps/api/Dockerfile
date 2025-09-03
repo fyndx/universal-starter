@@ -13,7 +13,7 @@ COPY packages/ ./packages/
 COPY packages/*/package.json ./packages/
 COPY apps/*/package.json ./apps/
 
-RUN bun install --frozen-lockfile
+RUN bun install
 
 # ------------------------
 # 2. Install & Build API
@@ -23,8 +23,12 @@ WORKDIR /app
 
 COPY . .
 
+# for serving static files
+# right now no static files to copy, so creating dir
+RUN mkdir -p ./apps/api/public
+
 # install again to ensure local packages are linked
-RUN bun install --frozen-lockfile
+RUN bun install --ignore-scripts --production
 # Generate Prisma client
 RUN bun --filter './packages/db' db:generate --no-engine
 
@@ -44,12 +48,8 @@ WORKDIR /app
 COPY --from=build /app/apps/api/server server
 # Copy .env file to runtime image for Prisma
 COPY --from=build /app/apps/api/.env* ./
-
-# copy deps + shared packages (needed at runtime)
-# COPY --from=build /app/node_modules ./node_modules
-# COPY --from=build /app/packages ./packages
-# COPY --from=build /app/bun.lock ./bun.lock
-# COPY --from=build /app/package.json ./package.json
+# Copy public directory to runtime image
+COPY --from=build /app/apps/api/public ./public
 
 ENV NODE_ENV=production
 
