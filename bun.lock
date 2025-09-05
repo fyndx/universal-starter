@@ -50,7 +50,7 @@
       },
     },
     "apps/frontend": {
-      "name": "@universal/app",
+      "name": "@universal/super-app",
       "version": "1.0.0",
       "dependencies": {
         "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
@@ -1111,8 +1111,6 @@
 
     "@universal/api": ["@universal/api@workspace:apps/api"],
 
-    "@universal/app": ["@universal/app@workspace:apps/frontend"],
-
     "@universal/db": ["@universal/db@workspace:packages/db"],
 
     "@universal/logger": ["@universal/logger@workspace:packages/logger"],
@@ -1122,6 +1120,8 @@
     "@universal/redis": ["@universal/redis@workspace:packages/redis"],
 
     "@universal/shared": ["@universal/shared@workspace:packages/shared"],
+
+    "@universal/super-app": ["@universal/super-app@workspace:apps/frontend"],
 
     "@universal/typescript-config": ["@universal/typescript-config@workspace:packages/ts-config"],
 
