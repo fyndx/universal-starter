@@ -9,7 +9,7 @@ ENV ENVIRONMENT=${ENVIRONMENT}
 WORKDIR /app
 # Copy package files first for better caching
 COPY bun.lock package.json ./
-COPY packages/ ./packages/
+# COPY packages/ ./packages/
 COPY packages/*/package.json ./packages/
 COPY apps/*/package.json ./apps/
 # Install dependencies (this layer will be cached if package files don't change)

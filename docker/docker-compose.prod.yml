@@ -14,3 +14,12 @@ services:
       dockerfile: ./apps/workers/Dockerfile
     env_file:
       - ./apps/workers/.env
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: ./apps/frontend/Dockerfile
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./apps/frontend/.env

@@ -31,6 +31,22 @@ services:
       - redis
       - postgres
 
+  frontend:
+    build:
+      context: ..
+      dockerfile: ./apps/frontend/Dockerfile
+    ports:
+      - "4000:4000"
+    env_file:
+      - ../apps/frontend/.env
+    volumes:
+      - ../apps/frontend:/app/apps/frontend
+      - ../packages:/app/packages
+      - ../bun.lock:/app/bun.lock
+      - ../package.json:/app/package.json
+    depends_on:
+      - api
+
   redis:
     image: redis:7-alpine
     ports:
