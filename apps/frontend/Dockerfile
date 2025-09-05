@@ -9,7 +9,7 @@ WORKDIR /app
 COPY package.json bun.lock ./
 COPY packages/*/package.json ./packages/
 COPY apps/*/package.json ./apps/
-RUN bun install --production
+RUN bun install
 
 COPY . .
 
