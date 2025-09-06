@@ -3,7 +3,7 @@ FROM oven/bun:latest AS base
 WORKDIR /app
 
 COPY ./apps/frontend/dist ./dist
-COPY ./apps/frontend/server ./server
+COPY ./apps/frontend/server .
 
 FROM gcr.io/distroless/base
 
