@@ -9,8 +9,8 @@ FROM gcr.io/distroless/base
 
 WORKDIR /app
 
-COPY --from=build /app/apps/frontend/dist ./dist
-COPY --from=build /app/apps/frontend/server ./server
+COPY --from=base /app/apps/frontend/dist ./dist
+COPY --from=base /app/apps/frontend/server ./server
 
 ENV NODE_ENV=production
 
