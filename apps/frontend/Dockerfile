@@ -19,9 +19,9 @@ WORKDIR /app
 
 RUN bun install --ignore-scripts
 # Create web build
-RUN bun run --filter @universal/super-app export:web
+RUN cd apps/frontend && bunx run export:web
 # Create server build
-RUN bun run --filter @universal/super-app export:server
+RUN cd apps/frontend && bun run expo:server
 
 FROM gcr.io/distroless/base
 
