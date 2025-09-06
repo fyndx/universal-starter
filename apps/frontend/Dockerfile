@@ -19,7 +19,7 @@ WORKDIR /app
 
 RUN bun install --ignore-scripts
 # Create web build
-RUN cd apps/frontend && bunx run export:web
+RUN cd apps/frontend && bunx expo export --platform web
 # Create server build
 RUN cd apps/frontend && bun run expo:server
 
