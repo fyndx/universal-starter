@@ -1,16 +1,9 @@
-FROM oven/bun:latest AS base
-
-WORKDIR /app
-
-COPY ./apps/frontend/dist ./dist
-COPY ./apps/frontend/server .
-
 FROM gcr.io/distroless/base
 
 WORKDIR /app
 
-COPY --from=base /app/apps/frontend/dist ./dist
-COPY --from=base /app/apps/frontend/server ./server
+COPY ./apps/frontend/dist .
+COPY ./apps/frontend/server .
 
 ENV NODE_ENV=production
 
