@@ -1,27 +1,9 @@
 FROM oven/bun:latest AS base
 
-ARG ENVIRONMENT=production
-ENV ENVIRONMENT=${ENVIRONMENT}
-# ENV NODE_ENV=${ENVIRONMENT}
-
-WORKDIR /app
-# Copy package files first for better caching
-COPY package.json bun.lock ./
-COPY packages/*/package.json ./packages/
-COPY apps/*/package.json ./apps/
-RUN bun install
-
-COPY . .
-
-FROM base AS build
-
 WORKDIR /app
 
-RUN bun install --ignore-scripts
-# Create web build
-RUN cd apps/frontend && bunx expo export --platform web
-# Create server build
-RUN cd apps/frontend && bun run expo:server
+COPY ./apps/frontend/dist ./dist
+COPY ./apps/frontend/server ./server
 
 FROM gcr.io/distroless/base
 
