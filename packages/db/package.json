@@ -18,7 +18,7 @@
     "prisma": "^6.15.0"
   },
   "peerDependencies": {
-    "typescript": "catalog:devDeps"
+    "typescript": "catalog:"
   },
   "dependencies": {
     "@prisma/client": "^6.15.0",

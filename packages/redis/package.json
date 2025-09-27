@@ -11,7 +11,7 @@
     "@universal/typescript-config": "workspace:*"
   },
   "peerDependencies": {
-    "typescript": "catalog:devDeps"
+    "typescript": "catalog:"
   },
   "dependencies": {
     "ioredis": "^5.7.0"
