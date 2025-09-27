@@ -7,30 +7,31 @@ ENV ENVIRONMENT=${ENVIRONMENT}
 # ENV NODE_ENV=production
 
 WORKDIR /app
-# Copy package files first for better caching
+
 COPY . .
 
 # Install dependencies (this layer will be cached if package files don't change)
-RUN bun install --ignore-scripts
+RUN bun install --verbose
 
 RUN cd apps/frontend && \
-    bun install 
+    bun install --ignore-scripts
 
 RUN cd apps/frontend && \
     bunx expo export --platform web
 RUN cd apps/frontend && \
     bun run export:server
 
+CMD ["sh"]
 
-FROM gcr.io/distroless/base
+# FROM gcr.io/distroless/base
 
-WORKDIR /app
+# WORKDIR /app
 
-COPY --from=base ./apps/frontend/dist .
-COPY --from=base ./apps/frontend/server .
+# COPY --from=base ./apps/frontend/dist .
+# COPY --from=base ./apps/frontend/server .
 
-ENV NODE_ENV=production
+# ENV NODE_ENV=production
 
-CMD [ "./server" ]
+# CMD [ "./server" ]
 
-EXPOSE 4000
+# EXPOSE 4000
