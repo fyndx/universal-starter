@@ -2,7 +2,7 @@ services:
   web:
     build:
       context: ..
-      dockerfile: ../apps/frontend/Dockerfile
+      dockerfile: ./apps/frontend/Dockerfile
     ports:
       - "4000:4000"
     env_file:
