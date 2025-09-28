@@ -13,6 +13,6 @@
     "@universal/typescript-config": "workspace:*"
   },
   "peerDependencies": {
-    "typescript": "catalog:devDeps"
+    "typescript": "catalog:"
   }
 }

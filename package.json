@@ -1,21 +1,10 @@
 {
   "name": "universal-starter",
   "private": true,
-  "workspaces": {
-    "packages": [
-      "apps/*",
-      "packages/*"
-    ],
-    "catalogs": {
-      "validation": {
-        "zod": "^4.0.17"
-      },
-      "devDeps": {
-        "@biomejs/biome": "2.2.2",
-        "typescript": "^5.9.2"
-      }
-    }
-  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "dev": "bun run --filter './apps/*' dev",
     "android": "bun run --filter './apps/frontend' android",
@@ -23,10 +12,10 @@
     "web": "bun run --filter './apps/frontend' web"
   },
   "devDependencies": {
-    "@biomejs/biome": "catalog:devDeps",
+    "@biomejs/biome": "catalog:",
     "@types/bun": "latest",
     "lefthook": "^1.12.3",
-    "typescript": "catalog:devDeps",
+    "typescript": "catalog:",
     "ultracite": "5.3.3"
   },
   "engines": {

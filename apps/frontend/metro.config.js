@@ -46,5 +46,6 @@ config.resolver.sourceExts.push(
 // Disable hierarchical lookup to avoid issues with monorepo setups
 // Force metro to resolve (sub)dependencies only from the `nodeModulesPaths`
 config.resolver.disableHierarchicalLookup = true;
+// config.resolver.unstable_enableSymlinks = true;
 
 module.exports = withNativeWind(config, { input: "./global.css" });
