@@ -1,4 +1,15 @@
 services:
+  web:
+    build:
+      context: ..
+      dockerfile: ../apps/frontend/Dockerfile
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./apps/frontend/.env
+    environment:
+      - EXPO_PUBLIC_API_URL=${EXPO_PUBLIC_API_URL}
+      - EXPO_PUBLIC_STORAGE_PREFIX=${EXPO_PUBLIC_STORAGE_PREFIX:-universal-starter}
   api:
     build:
       context: ..
@@ -7,6 +18,15 @@ services:
       - "3000:3000"
     env_file:
       - ./apps/api/.env
+    environment:
+      - AXIOM_DOMAIN=${AXIOM_DOMAIN:-https://api.axiom.co}
+      - AXIOM_TOKEN=${AXIOM_TOKEN}
+      - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
+      - DATABASE_URL=${DATABASE_URL}
+      - DATASET_NAME=${DATASET_NAME:-universal_starter}
+      - EMAIL_PROVIDER=${EMAIL_PROVIDER:-resend}
+      - REDIS_URL=${REDIS_URL}
+      - RESEND_API_KEY=${RESEND_API_KEY}
 
   workers:
     build:
@@ -14,3 +34,6 @@ services:
       dockerfile: ./apps/workers/Dockerfile
     env_file:
       - ./apps/workers/.env
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_URL=${REDIS_URL}
