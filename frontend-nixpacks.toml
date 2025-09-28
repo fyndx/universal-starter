@@ -1,0 +1,12 @@
+[phases.setup]
+nixPkgs = ['nodejs_22', 'pnpm', 'bun', 'watchman']
+[phases.install]
+dependsOn = ["setup"]
+cmds = ["pnpm install"]
+[phases.build]
+dependsOn = ["install"]
+cmds = ["cd apps/frontend && pnpm run export:web", "cd apps/frontend && pnpm run export:server"]
+[start]
+runImage = "alpine:latest"
+onlyIncludeFiles = ["apps/frontend/web-server", "apps/frontend/dist"]
+cmd = "/app/apps/frontend/web-server"

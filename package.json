@@ -1,6 +1,10 @@
 {
   "name": "universal-starter",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "dev": "bun run --filter './apps/*' dev",
     "android": "bun run --filter './apps/frontend' android",
