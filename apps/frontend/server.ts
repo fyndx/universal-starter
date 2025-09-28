@@ -3,8 +3,11 @@ import path from "node:path";
 import { createRequestHandler } from "@expo/server/adapter/bun";
 import Bun from "bun";
 
+const CLIENT_BUILD_DIR = `${process.cwd()}/dist/client`;
+const SERVER_BUILD_DIR = `${process.cwd()}/dist/server`;
+
 const handler = createRequestHandler({
-  build: path.join(path.dirname(import.meta.path), "dist/server"),
+  build: SERVER_BUILD_DIR,
 });
 
 const server = Bun.serve({
