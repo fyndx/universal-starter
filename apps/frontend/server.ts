@@ -1,8 +1,11 @@
 import path from "node:path";
-import { createRequestHandler } from "@expo/server";
+// import { createRequestHandler } from "@expo/server";
+import { createRequestHandler } from "@expo/server/adapter/bun";
 import Bun from "bun";
 
-const handler = createRequestHandler(path.join(import.meta.dir, "dist/server"));
+const handler = createRequestHandler({
+  build: path.join(path.dirname(import.meta.path), "dist/server"),
+});
 
 const server = Bun.serve({
   port: 4000,
