@@ -1,11 +1,9 @@
 import { z } from "zod";
 
 const envSchema = z.object({
-	EXPO_PUBLIC_API_URL: z.url(),
-	EXPO_PUBLIC_STORAGE_PREFIX: z.string().min(2).max(100),
+  EXPO_PUBLIC_API_URL: z.url(),
 });
 
 export const env = envSchema.parse({
-	EXPO_PUBLIC_API_URL: process.env.EXPO_PUBLIC_API_URL,
-	EXPO_PUBLIC_STORAGE_PREFIX: process.env.EXPO_PUBLIC_STORAGE_PREFIX,
+  EXPO_PUBLIC_API_URL: process.env.EXPO_PUBLIC_API_URL,
 });

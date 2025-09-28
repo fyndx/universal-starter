@@ -18,7 +18,9 @@ WORKDIR /app
 # Install dependencies for the full monorepo 
 COPY --from=builder /app/out/json . 
 RUN bun install 
-# Build Phase 
+# Build Phase
+ARG EXPO_PUBLIC_API_URL
+ENV EXPO_PUBLIC_API_URL=$EXPO_PUBLIC_API_URL
 COPY --from=builder /app/out/full . 
 RUN turbo run build 
 # Production image 
