@@ -4,6 +4,7 @@ generator client {
   output   = "../src/generated/prisma"
   moduleFormat = "esm"
   runtime = "bun"
+  engineType = "client"
 }
 
 datasource db {

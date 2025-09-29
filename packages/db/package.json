@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@prisma/adapter-pg": "^6.16.2",
-    "@prisma/client": "^6.16.0"
+    "@prisma/client": "^6.16.2"
   },
   "exports": {
     ".": "./src/index.ts"

@@ -157,7 +157,7 @@
       "name": "@universal/db",
       "dependencies": {
         "@prisma/adapter-pg": "^6.16.2",
-        "@prisma/client": "^6.16.0",
+        "@prisma/client": "^6.16.2",
       },
       "devDependencies": {
         "@types/bun": "latest",
