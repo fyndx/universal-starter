@@ -1,4 +1,4 @@
-import { LRUCache } from 'lru-cache';
+import { LRUCache } from "lru-cache";
 
 const originCache = new LRUCache<string, boolean>({
   max: 500,
@@ -7,12 +7,12 @@ const originCache = new LRUCache<string, boolean>({
 
 // CORS configuration
 const CORS_CONFIG = {
-  allowedOrigins: ['http://localhost:8081'],
-  allowedPatterns: [/^https:\/\/[a-zA-Z0-9-]+\.expo\.app$/],
+  allowedOrigins: ["http://localhost:8081"],
+  allowedPatterns: [/^https:\/\/[a-zA-Z0-9-]+\.coolify\.fyndx\.io\/?$/],
 };
 
 const isOriginAllowed = (origin: string): boolean => {
-  if (!origin || origin === 'null') {
+  if (!origin || origin === "null") {
     return false;
   }
   // Normalize and validate
