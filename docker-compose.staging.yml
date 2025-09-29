@@ -1,0 +1,59 @@
+services:
+  web:
+    build:
+      dockerfile: ./apps/frontend/Dockerfile
+      args:
+        - EXPO_PUBLIC_API_URL=${EXPO_PUBLIC_API_URL}
+    ports:
+      - "4000:4000"
+  api:
+    build:
+      dockerfile: ./apps/api/Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      - AXIOM_DOMAIN=${AXIOM_DOMAIN:-https://api.axiom.co}
+      - AXIOM_TOKEN=${AXIOM_TOKEN}
+      - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
+      - DATABASE_URL=${DATABASE_URL}
+      - DATASET_NAME=${DATASET_NAME:-universal_starter}
+      - EMAIL_PROVIDER=${EMAIL_PROVIDER:-resend}
+      - REDIS_URL=${REDIS_URL}
+      - RESEND_API_KEY=${RESEND_API_KEY}
+
+  workers:
+    build:
+      dockerfile: ./apps/workers/Dockerfile
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_URL=${REDIS_URL}
+
+  postgres:
+    image: postgres:18-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      POSTGRES_DB: ${POSTGRES_DB:-universal_starter}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:8-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  pg_data:
+  redis_data:
