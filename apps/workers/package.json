@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "bun build --compile --minify-whitespace --minify-syntax --target bun --outfile workers ./src/index.ts",
+    "build": "bun build --compile --minify-whitespace --minify-syntax --target bun --outfile worker ./src/index.ts",
     "dev": "bun run --watch src/index.ts"
   },
   "dependencies": {

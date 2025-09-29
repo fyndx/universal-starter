@@ -17,19 +17,19 @@
     }
   },
   "scripts": {
-    "dev": "bun run --filter './apps/*' dev",
-    "android": "bun run --filter './apps/frontend' android",
-    "ios": "bun run --filter './apps/frontend' ios",
-    "web": "bun run --filter './apps/frontend' web"
+    "dev": "turbo run dev",
+    "build": "turbo run build"
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:devDeps",
     "@types/bun": "latest",
     "lefthook": "^1.12.3",
+    "turbo": "^2.5.8",
     "typescript": "catalog:devDeps",
     "ultracite": "5.3.3"
   },
   "engines": {
     "bun": ">=1.0.0"
-  }
+  },
+  "packageManager": "bun@1.2.22"
 }
