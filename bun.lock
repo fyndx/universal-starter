@@ -200,6 +200,7 @@
     "packages/redis": {
       "name": "@universal/redis",
       "dependencies": {
+        "@universal/logger": "workspace:*",
         "ioredis": "^5.7.0",
       },
       "devDependencies": {
