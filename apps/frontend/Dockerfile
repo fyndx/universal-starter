@@ -1,4 +1,6 @@
 FROM oven/bun:debian AS base 
+# Setup: Install turbo globally
+RUN bun install turbo --global 
 
 # Setup Phase 
 FROM base as builder
@@ -7,13 +9,11 @@ RUN apt-get update && \
     apt-get clean && \ 
     rm -rf /var/lib/apt/lists/* 
 # Setup: Install turbo globally 
-RUN bun install turbo --global 
 WORKDIR /app 
 # Install Phase 
 COPY . . 
 RUN turbo prune @universal/app --docker 
 FROM base AS installer 
-RUN bun install turbo --global 
 WORKDIR /app 
 # Install dependencies for the full monorepo 
 COPY --from=builder /app/out/json . 
@@ -22,7 +22,7 @@ RUN bun install
 ARG EXPO_PUBLIC_API_URL
 ENV EXPO_PUBLIC_API_URL=$EXPO_PUBLIC_API_URL
 COPY --from=builder /app/out/full . 
-RUN turbo run build 
+RUN turbo run build --filter=@universal/app
 # Production image 
 # For Web 
 FROM gcr.io/distroless/base AS web 

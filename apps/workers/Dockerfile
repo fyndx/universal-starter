@@ -1,42 +1,31 @@
-FROM oven/bun AS base
+FROM oven/bun:debian AS base
+# Install turbo globally
+RUN bun install turbo --global
 
-ARG ENVIRONMENT=production
-ENV ENVIRONMENT=${ENVIRONMENT}
-# ENV NODE_ENV=production
-
+# Setup Phase
+FROM base as builder
 WORKDIR /app
+COPY . .
+RUN turbo prune @universal/workers --docker
 
-COPY bun.lock package.json ./
-COPY packages/*/package.json ./packages/
-COPY apps/*/package.json ./apps/
-
+FROM base AS installer
+WORKDIR /app
+# Install dependencies for the pruned monorepo
+COPY --from=builder /app/out/json .
 RUN bun install
 
-COPY . .
+# Build Phase
+ARG ENVIRONMENT=production
+ENV ENVIRONMENT=${ENVIRONMENT}
+COPY --from=builder /app/out/full .
+RUN turbo run build --filter=@universal/workers
 
-FROM base AS build
-WORKDIR /app
-
-RUN bun install --ignore-scripts
-# Generate Prisma client
-RUN bun --filter './packages/db' db:generate --no-engine
-
-
-RUN bun run --filter @universal/workers build \
-  --compile \
-  --minify-whitespace \
-  --minify-syntax \
-  --target bun \
-  --outfile worker \
-  ./src/index.ts
-
+# Production image
 FROM gcr.io/distroless/base
-
 WORKDIR /app
 
-COPY --from=build /app/apps/workers/worker worker
-# Copy .env file to runtime image for Prisma
-COPY --from=build /app/apps/workers/.env* ./
+COPY --from=installer /app/apps/workers/worker worker
+COPY --from=installer /app/apps/workers/.env* ./
 
 ENV NODE_ENV=production
 
