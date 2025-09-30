@@ -13,12 +13,12 @@ const config = getDefaultConfig(projectRoot, {
 });
 
 // 1. Watch all files within the monorepo
-config.watchFolders = [monorepoRoot];
+// config.watchFolders = [monorepoRoot];
 // 2. Let Metro know where to resolve packages and in what order
-config.resolver.nodeModulesPaths = [
-  path.resolve(projectRoot, "node_modules"),
-  path.resolve(monorepoRoot, "node_modules"),
-];
+// config.resolver.nodeModulesPaths = [
+//   path.resolve(projectRoot, "node_modules"),
+//   path.resolve(monorepoRoot, "node_modules"),
+// ];
 
 // FIXME: Moti tslib issue
 const ALIASES = {
@@ -45,6 +45,6 @@ config.resolver.sourceExts.push(
 
 // Disable hierarchical lookup to avoid issues with monorepo setups
 // Force metro to resolve (sub)dependencies only from the `nodeModulesPaths`
-config.resolver.disableHierarchicalLookup = true;
+// config.resolver.disableHierarchicalLookup = true;
 
 module.exports = withNativeWind(config, { input: "./global.css" });
