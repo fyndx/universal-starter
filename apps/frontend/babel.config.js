@@ -6,9 +6,9 @@ module.exports = (api) => {
       "nativewind/babel",
     ],
     plugins: [
+      // Reanimated
       "@babel/plugin-proposal-export-namespace-from",
-      // NOTE: this is only necessary if you are using reanimated for animations
-      "react-native-reanimated/plugin",
+      "react-native-worklets/plugin",
     ],
   };
 };

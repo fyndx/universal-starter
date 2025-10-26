@@ -38,7 +38,9 @@
       ],
       "expo-font",
       "react-native-edge-to-edge",
-      "expo-video"
+      "expo-video",
+      "expo-secure-store",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true
