@@ -1,30 +1,25 @@
 import { etag } from "@bogeychan/elysia-etag";
 import { type pino, wrap } from "@bogeychan/elysia-logger";
 import cors from "@elysiajs/cors";
+import { fromTypes, openapi } from "@elysiajs/openapi";
 import { serverTiming } from "@elysiajs/server-timing";
 import { staticPlugin } from "@elysiajs/static";
-import swagger from "@elysiajs/swagger";
 import { validateOrigin } from "@src/cors";
 import { auth } from "@src/lib/auth";
 import { instrumentation } from "@src/lib/instrumentation";
-import { OpenAPI } from "@src/lib/open-api";
 import { meRoutes } from "@src/modules/me";
 import { elysiaLogger } from "@universal/logger";
 import { Elysia } from "elysia";
 
 const PORT = 3000;
 
-const app = new Elysia({ prefix: "/api" })
+export const app = new Elysia({ prefix: "/api" })
   // Core
   .use(instrumentation)
   .use(wrap(elysiaLogger as pino.Logger, {}))
   .use(
-    swagger({
-      documentation: {
-        components: await OpenAPI.components,
-        paths: await OpenAPI.getPaths(),
-        tags: [{ name: "App", description: "General endpoints" }],
-      },
+    openapi({
+      references: fromTypes(),
     })
   )
   .use(serverTiming())
@@ -77,6 +72,8 @@ const app = new Elysia({ prefix: "/api" })
     }
   )
   .use(meRoutes())
-  .listen(PORT);
+  .listen(PORT, () => {
+    elysiaLogger.info(`🚀 API Server running at http://localhost:${PORT}/api`);
+  });
 
 export type App = typeof app;
