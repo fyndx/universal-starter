@@ -1,22 +1,23 @@
-import { expo } from '@better-auth/expo';
-import { prisma } from '@src/infra/db';
-import { redisClient as redis } from '@universal/redis';
-import { betterAuth } from 'better-auth';
-import { prismaAdapter } from 'better-auth/adapters/prisma';
-import { admin, openAPI } from 'better-auth/plugins';
-import { emailService } from './email/email-service';
+import { expo } from "@better-auth/expo";
+import { prisma } from "@src/infra/db";
+import { redisClient as redis } from "@universal/redis";
+import { betterAuth } from "better-auth";
+import { prismaAdapter } from "better-auth/adapters/prisma";
+import { admin, openAPI } from "better-auth/plugins";
+import { emailService } from "./email/email-service";
 
 export const auth = betterAuth({
+  basePath: "/auth",
   plugins: [expo(), openAPI(), admin()],
   trustedOrigins: [
-    'universalstarter://',
-    'universalstarter://*',
-    'https://*.expo.app',
-    'https://expo.app',
-    'http://localhost:8081',
+    "universalstarter://",
+    "universalstarter://*",
+    "https://*.expo.app",
+    "https://expo.app",
+    "http://localhost:8081",
   ],
   database: prismaAdapter(prisma, {
-    provider: 'postgresql',
+    provider: "postgresql",
   }),
   emailAndPassword: {
     enabled: true,
@@ -35,12 +36,12 @@ export const auth = betterAuth({
     sendOnSignUp: true,
   },
   advanced: {
-    cookiePrefix: 'universal-starter',
+    cookiePrefix: "universal-starter",
     crossSubDomainCookies: {
       enabled: false,
     },
     defaultCookieAttributes: {
-      sameSite: 'none',
+      sameSite: "none",
       secure: true,
     },
   },
@@ -54,7 +55,7 @@ export const auth = betterAuth({
     },
     set: async (key, value, ttl) => {
       if (ttl) {
-        await redis.set(key, value, 'EX', ttl);
+        await redis.set(key, value, "EX", ttl);
       } else {
         await redis.set(key, value);
       }
