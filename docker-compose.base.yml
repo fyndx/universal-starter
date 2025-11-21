@@ -14,10 +14,9 @@ services:
   redis:
     image: redis:8-alpine
     container_name: universal-starter-redis
+    command: redis-server --requirepass ${REDIS_PASSWORD:-supersecret}
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD:-supersecret}
-      - REDIS_USER=${REDIS_USER:-default}
-      - REDIS_DATABASE=${REDIS_DATABASE:-0}
     ports:
       - "6379:6379"
     volumes:
