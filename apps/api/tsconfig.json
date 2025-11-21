@@ -30,7 +30,6 @@
     "module": "Preserve",
     "moduleResolution": "bundler",
     "baseUrl": ".",
-    "types": ["bun-types"],
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
 

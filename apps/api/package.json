@@ -38,7 +38,7 @@
     "zod": "catalog:validation"
   },
   "devDependencies": {
-    "bun-types": "latest",
+    "@types/bun": "latest",
     "typescript": "catalog:devDeps"
   },
   "exports": {

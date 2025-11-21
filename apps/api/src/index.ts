@@ -10,6 +10,7 @@ import { instrumentation } from "@src/lib/instrumentation";
 import { meRoutes } from "@src/modules/me";
 import { elysiaLogger } from "@universal/logger";
 import { Elysia } from "elysia";
+import path from "path";
 
 const PORT = 3000;
 
@@ -19,7 +20,17 @@ export const app = new Elysia({ prefix: "/api" })
   .use(wrap(elysiaLogger as pino.Logger, {}))
   .use(
     openapi({
-      references: fromTypes(),
+      // TODO: monorepo issue with typescript types
+      // references: fromTypes(
+      //   process.env.NODE_ENV === "production"
+      //     ? "dist/index.d.ts"
+      //     : "src/index.ts",
+      //   {
+      //     // get the root directory of the project
+      //     projectRoot: path.join(import.meta.dir, ".."),
+      //     tsconfigPath: path.join(import.meta.dir, "..", "tsconfig.dts.json"),
+      //   }
+      // ),
     })
   )
   .use(serverTiming())
