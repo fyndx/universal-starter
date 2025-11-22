@@ -15,15 +15,17 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "@types/pg": "^8.15.6",
     "@universal/typescript-config": "workspace:*",
-    "prisma": "^6.16.2"
+    "prisma": "^7.0.0"
   },
   "peerDependencies": {
     "typescript": "catalog:devDeps"
   },
   "dependencies": {
-    "@prisma/adapter-pg": "^6.16.2",
-    "@prisma/client": "^6.16.2"
+    "@prisma/adapter-pg": "^7.0.0",
+    "@prisma/client": "^7.0.0",
+    "dotenv": "^17.2.3"
   },
   "exports": {
     ".": "./src/index.ts"

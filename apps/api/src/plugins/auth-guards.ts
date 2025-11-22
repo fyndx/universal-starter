@@ -9,7 +9,7 @@ export const requireAuth = () =>
     .onBeforeHandle({ as: "scoped" }, ({ session, user, set }) => {
       if (!(session && user)) {
         const { code: status, message } = getStatusCode(401);
-        set.status = status as number;
+        set.status = "Unauthorized";
         const envelope = formatErrorResponse({
           code: message,
           problem: {
@@ -40,7 +40,7 @@ export const requireRole = (roles: string[]) =>
       if (!hasRole) {
         const { code: status, message } = getStatusCode(403);
 
-        set.status = status as number;
+        set.status = "Forbidden";
         const envelope = formatErrorResponse({
           code: message,
           problem: {
