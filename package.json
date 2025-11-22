@@ -24,7 +24,7 @@
     "@biomejs/biome": "catalog:devDeps",
     "@types/bun": "latest",
     "lefthook": "^1.12.3",
-    "turbo": "^2.5.8",
+    "turbo": "^2.6.1",
     "typescript": "catalog:devDeps",
     "ultracite": "5.3.3"
   },

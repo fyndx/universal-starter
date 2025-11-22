@@ -94,6 +94,10 @@ docker compose -f docker/docker-compose.dev.yml up --build
 docker compose -f docker/docker-compose.prod.yml up --build -d
 ```
 
+# Inspiration
+
+- https://www.better-t-stack.dev/
+
 ## License
 
 MIT

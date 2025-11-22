@@ -1,11 +1,11 @@
-import { auth } from '@src/lib/auth';
-import Elysia from 'elysia';
+import { auth } from "@src/lib/auth";
+import Elysia from "elysia";
 
 export const withAuth = () =>
-  new Elysia({ name: 'withAuth' })
-    .decorate('auth', auth)
+  new Elysia({ name: "withAuth" })
+    .decorate("auth", auth)
     .derive(
-      { as: 'scoped' },
+      { as: "scoped" },
       async function getSession({ request: { headers } }) {
         const result = await auth.api.getSession({ headers });
         if (!result) {

@@ -9,7 +9,7 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@better-auth/expo": "^1.3.32",
+    "@better-auth/expo": "^1.4.1",
     "@bogeychan/elysia-etag": "^0.1.0",
     "@bogeychan/elysia-logger": "^0.1.10",
     "@elysiajs/cors": "^1.4.0",
@@ -27,7 +27,7 @@
     "@universal/queue-kit": "workspace:*",
     "@universal/redis": "workspace:*",
     "@universal/shared": "workspace:*",
-    "better-auth": "^1.3.32",
+    "better-auth": "^1.4.1",
     "elysia": "^1.4.16",
     "elysia-rate-limit": "^4.4.2",
     "ioredis": "^5.8.2",
