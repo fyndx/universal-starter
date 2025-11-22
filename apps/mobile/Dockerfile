@@ -12,7 +12,7 @@ RUN apt-get update && \
 WORKDIR /app 
 # Install Phase 
 COPY . . 
-RUN turbo prune @universal/app --docker 
+RUN turbo prune @universal/mobile --docker 
 FROM base AS installer 
 WORKDIR /app 
 # Install dependencies for the full monorepo 
@@ -22,13 +22,13 @@ RUN bun install
 ARG EXPO_PUBLIC_API_URL
 ENV EXPO_PUBLIC_API_URL=$EXPO_PUBLIC_API_URL
 COPY --from=builder /app/out/full . 
-RUN turbo run build --filter=@universal/app
+RUN turbo run build --filter=@universal/mobile
 # Production image 
 # For Web 
 FROM gcr.io/distroless/base AS web 
 WORKDIR /app 
 ENV NODE_ENV=production 
-COPY --from=installer /app/apps/frontend/web-server /app/server 
-COPY --from=installer /app/apps/frontend/dist /app/dist 
+COPY --from=installer /app/apps/mobile/web-server /app/server 
+COPY --from=installer /app/apps/mobile/dist /app/dist 
 CMD [ "./server" ] 
 EXPOSE 4000

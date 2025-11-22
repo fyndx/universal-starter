@@ -49,8 +49,8 @@
         "typescript": "catalog:devDeps",
       },
     },
-    "apps/frontend": {
-      "name": "@universal/app",
+    "apps/mobile": {
+      "name": "@universal/mobile",
       "version": "1.0.0",
       "dependencies": {
         "@better-auth/expo": "^1.4.1",
@@ -1137,11 +1137,11 @@
 
     "@universal/api": ["@universal/api@workspace:apps/api"],
 
-    "@universal/app": ["@universal/app@workspace:apps/frontend"],
-
     "@universal/db": ["@universal/db@workspace:packages/db"],
 
     "@universal/logger": ["@universal/logger@workspace:packages/logger"],
+
+    "@universal/mobile": ["@universal/mobile@workspace:apps/mobile"],
 
     "@universal/queue-kit": ["@universal/queue-kit@workspace:packages/queue-kit"],
 

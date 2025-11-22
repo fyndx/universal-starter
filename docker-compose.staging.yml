@@ -1,7 +1,7 @@
 services:
   web:
     build:
-      dockerfile: ./apps/frontend/Dockerfile
+      dockerfile: ./apps/mobile/Dockerfile
       args:
         - EXPO_PUBLIC_API_URL=${EXPO_PUBLIC_API_URL}
     ports:
