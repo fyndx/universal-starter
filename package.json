@@ -5,16 +5,7 @@
     "packages": [
       "apps/*",
       "packages/*"
-    ],
-    "catalogs": {
-      "validation": {
-        "zod": "^4.0.17"
-      },
-      "devDeps": {
-        "@biomejs/biome": "2.2.2",
-        "typescript": "^5.9.2"
-      }
-    }
+    ]
   },
   "scripts": {
     "dev": "turbo run dev",
@@ -31,5 +22,5 @@
   "engines": {
     "bun": ">=1.0.0"
   },
-  "packageManager": "bun@1.2.22"
+  "packageManager": "pnpm@10.23.0"
 }

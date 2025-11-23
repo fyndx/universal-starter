@@ -1,6 +1,9 @@
 FROM oven/bun:debian AS base
-# Install turbo globally
-RUN bun install turbo --global
+# Install nodejs, npm and pnpm
+RUN apt-get update && apt-get install -y curl && \
+    curl -fsSL https://deb.nodesource.com/setup_24.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install -g pnpm turbo
 
 # Setup Phase
 FROM base as builder
@@ -12,7 +15,7 @@ FROM base AS installer
 WORKDIR /app
 # Install dependencies for the pruned monorepo
 COPY --from=builder /app/out/json .
-RUN bun install
+RUN pnpm install --frozen-lockfile
 
 # Build Phase
 ARG ENVIRONMENT=production

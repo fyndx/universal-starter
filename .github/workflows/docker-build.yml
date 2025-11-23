@@ -112,8 +112,8 @@ jobs:
           tags: |
             type=ref,event=branch
             type=ref,event=pr
-            type=sha,prefix={{branch}}-
-            type=raw,value=latest,enable={{is_default_branch}}
+            type=sha,format=short,prefix=${{ github.event_name == 'pull_request' && github.event.pull_request.head.ref || '{{branch}}' }}-
+            # type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build and push Workers image
         uses: docker/build-push-action@v5
