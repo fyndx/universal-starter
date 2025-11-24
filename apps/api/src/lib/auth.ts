@@ -4,10 +4,11 @@ import { redisClient as redis } from "@universal/redis";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { admin, openAPI } from "better-auth/plugins";
+import { env } from "@src/env";
 import { emailService } from "./email/email-service";
 
 export const auth = betterAuth({
-  basePath: "/auth",
+  // basePath: "/auth",
   plugins: [expo(), openAPI(), admin()],
   trustedOrigins: [
     "universalstarter://",
@@ -15,10 +16,27 @@ export const auth = betterAuth({
     "https://*.expo.app",
     "https://expo.app",
     "http://localhost:8081",
+
+    // Development mode - Expo's exp:// scheme with local IP ranges
+    ...(env.NODE_ENV === "development" ? [
+        "exp://*/*",                 // Trust all Expo development URLs
+        "exp://10.0.0.*:*/*",        // Trust 10.0.0.x IP range
+        "exp://192.168.*.*:*/*",     // Trust 192.168.x.x IP range
+        "exp://172.*.*.*:*/*",       // Trust 172.x.x.x IP range
+        "exp://localhost:*/*"        // Trust localhost
+    ] : [])
   ],
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
+  socialProviders: {
+    google: {
+      prompt: "select_account", 
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
+      // redirectURI: `${env.BETTER_AUTH_URL}/api/auth/callback/google`,
+    },
+  },
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: false,

@@ -20,7 +20,6 @@ plugins.push(adminClient());
 
 export const authClient = createAuthClient({
   baseURL: `${env.EXPO_PUBLIC_API_URL}/api/auth`, // Base URL of your Better Auth backend.
-  // baseURL: "http://localhost:3000/api/auth", // Base URL of your Better Auth backend.
   plugins,
   fetchOptions: {
     credentials: 'include', // Include cookies in requests.

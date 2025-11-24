@@ -152,6 +152,28 @@ export default function SignIn() {
                 </Button>
               </View>
             )}
+            <View className="relative py-2">
+              <View className="absolute inset-0 flex items-center justify-center">
+                <View className="w-full border-t border-muted" />
+              </View>
+              <View className="relative flex justify-center text-center bg-background px-2">
+                <Text className="bg-background px-2 text-muted-foreground text-xs">
+                  Or continue with
+                </Text>
+              </View>
+            </View>
+            <Button
+              variant="outline"
+              onPress={async () => {
+                await authClient.signIn.social({
+                  provider: "google",
+                  callbackURL: "/",
+                });
+              }}
+              className="flex-row items-center gap-2"
+            >
+              <Text>Sign in with Google</Text>
+            </Button>
           </CardFooter>
           {/* Sign Up Option */}
           <View className="p-6 pt-0">
