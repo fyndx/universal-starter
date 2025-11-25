@@ -32,7 +32,7 @@ export const SignUpContainer = observer(() => {
   };
 
   return (
-    <View className="flex-1 justify-center items-center">
+    <View className="flex-1 justify-center items-center p-6">
       <View className="w-full max-w-sm">
         {status === "success" ? (
           <SignUpSuccessCard

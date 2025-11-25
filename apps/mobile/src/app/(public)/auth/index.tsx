@@ -3,6 +3,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { ChevronLeft } from "lucide-react-native";
 import { View } from "react-native";
+import { Screen } from "~/components/screen";
 import { Button } from "~/components/ui/button";
 import { Text } from "~/components/ui/text";
 
@@ -19,7 +20,7 @@ export default function AuthIndex() {
   };
 
   return (
-    <View className="flex-1 justify-center items-center p-4">
+    <Screen className="flex-1 justify-center items-center p-4">
       {router.canGoBack() && (
         <Button
           variant="ghost"
@@ -97,6 +98,6 @@ export default function AuthIndex() {
           </Text>
         </View>
       </View>
-    </View>
+    </Screen>
   );
 }

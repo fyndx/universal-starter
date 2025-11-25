@@ -3,6 +3,7 @@ import { Link, useRouter } from "expo-router";
 import { ChevronLeft } from "lucide-react-native";
 import { useState } from "react";
 import { Platform, View } from "react-native";
+import { Screen } from "~/components/screen";
 import { ActivityIndicator } from "~/components/ui/activity-indicator";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
@@ -60,17 +61,18 @@ export default function ForgotPassword() {
   };
 
   return (
-    <View className="flex-1 justify-center items-center p-4">
-      {router.canGoBack() && (
-        <Button
-          variant="ghost"
-          className="absolute top-0 left-0 z-10"
-          onPress={() => router.back()}
+    <Screen>
+      <View className="flex-row">
+        {router.canGoBack() && (
+          <Button
+            variant="ghost"
+            onPress={() => router.back()}
         >
           <ChevronLeft size={24} className="text-foreground" />
         </Button>
       )}
-      <View className="w-full max-w-sm gap-6">
+      </View>
+      <View className="flex-1 w-full max-w-sm gap-6 p-6 justify-center">
         <View className="gap-2">
           <Text className="text-2xl font-bold">Reset your password</Text>
           <Text className="text-muted-foreground">
@@ -111,6 +113,6 @@ export default function ForgotPassword() {
           </View>
         </View>
       </View>
-    </View>
+    </Screen>
   );
 }
