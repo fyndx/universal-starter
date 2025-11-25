@@ -53,6 +53,10 @@
     "db:down": {
       "cache": false,
       "persistent": true
+    },
+    "db:reset": {
+      "cache": false,
+      "persistent": true
     }
   }
 }

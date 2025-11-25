@@ -132,7 +132,7 @@ export const HeaderUser = observer(() => {
 							variant="outline"
 							size="sm"
 							onPress={() => {
-								push("/auth/sign-in", { withAnchor: true });
+								push("/auth", { withAnchor: true });
 							}}
 						>
 							<Text>Login</Text>

@@ -33,6 +33,6 @@ export default function SplashScreen() {
     return <Redirect href="/(public)/(protected)/home/(tabs)" />;
   } else if (session.data === null) {
     // User is not authenticated, redirect to login
-    return <Redirect href="/(public)/auth/sign-in" />;
+    return <Redirect href="/(public)/auth" />;
   }
 }

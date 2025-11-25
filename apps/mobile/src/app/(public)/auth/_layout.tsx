@@ -16,12 +16,11 @@ export default function AuthLayout() {
 
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
-			<Header />
-			<Stack screenOptions={{ headerShown: false }} initialRouteName="sign-in">
+			<Stack screenOptions={{ headerShown: false }}>
+				<Stack.Screen name="index" />
 				<Stack.Screen name="sign-in" />
 				<Stack.Screen name="sign-up" />
 				<Stack.Screen name="forgot-password" />
-				<Stack.Screen name="social-sign-in" />
 			</Stack>
 		</SafeAreaView>
 	);

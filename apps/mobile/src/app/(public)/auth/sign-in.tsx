@@ -1,17 +1,10 @@
 import { authClient } from "@/src/lib/auth-client";
 import { Link, useRouter } from "expo-router";
+import { ChevronLeft } from "lucide-react-native";
 import { useState } from "react";
 import { View } from "react-native";
 import { ActivityIndicator } from "~/components/ui/activity-indicator";
 import { Button } from "~/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { PasswordInput } from "~/components/ui/password";
 import { Text } from "~/components/ui/text";
@@ -94,101 +87,86 @@ export default function SignIn() {
   };
 
   return (
-    <View className="flex-1 justify-center items-center">
-      <View className="w-full max-w-sm">
-        <Card>
-          <CardHeader>
-            <CardTitle>Login to your account</CardTitle>
-            <CardDescription>
-              Enter your email and password to sign in.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="gap-4">
-            <Input
-              id={"email"}
-              placeholder="Email"
-              value={email}
-              onChangeText={setEmail}
-            />
-            <PasswordInput
-              id={"password"}
-              placeholder="Password"
-              value={password}
-              onChangeText={setPassword}
-            />
-            {/* Forgot Password */}
-            <Link href="/(public)/auth/forgot-password">
-              <Text className="mt-2 text-right text-sm text-muted-foreground self-end hover:underline hover:text-primary">
-                Forgot Password?
+    <View className="flex-1 justify-center items-center p-4">
+      {router.canGoBack() && (
+        <Button
+          variant="ghost"
+          className="absolute top-0 left-0 z-10"
+          onPress={() => router.back()}
+        >
+          <ChevronLeft size={24} className="text-foreground" />
+        </Button>
+      )}
+      <View className="w-full max-w-sm gap-6">
+        <View className="gap-2">
+          <Text className="text-2xl font-bold">Login to your account</Text>
+          <Text className="text-muted-foreground">
+            Enter your email and password to sign in.
+          </Text>
+        </View>
+        <View className="gap-4">
+          <Input
+            id={"email"}
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+          />
+          <PasswordInput
+            id={"password"}
+            placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+          />
+          {/* Forgot Password */}
+          <Link href="/(public)/auth/forgot-password" asChild>
+            <Text className="mt-2 text-right text-sm text-muted-foreground self-end hover:underline hover:text-primary">
+              Forgot Password?
+            </Text>
+          </Link>
+        </View>
+        <View className="flex-col gap-3">
+          <Button
+            onPress={handleLogin}
+            className="flex-row items-center gap-4"
+          >
+            {isLoading && <ActivityIndicator />}
+            <Text>{isLoading ? "Signing In..." : "Sign In"}</Text>
+          </Button>
+
+          {showVerificationPrompt && (
+            <View className="w-full">
+              <Text className="text-sm text-muted-foreground text-center mb-2">
+                Email not verified? Check your inbox or resend verification.
+              </Text>
+              <Button
+                variant="outline"
+                onPress={handleResendVerification}
+                disabled={isResendingVerification}
+                className="flex-row items-center gap-2"
+              >
+                {isResendingVerification && <ActivityIndicator />}
+                <Text>
+                  {isResendingVerification
+                    ? "Sending..."
+                    : "Resend Verification Email"}
+                </Text>
+              </Button>
+            </View>
+          )}
+        </View>
+        {/* Sign Up Option */}
+        <View className="p-6 pt-0">
+          <View className="flex-row justify-center items-center">
+            <Text className="text-sm text-muted-foreground">
+              Don't have an account?{" "}
+            </Text>
+            <Link href="/(public)/auth/sign-up" asChild>
+              <Text className="text-sm text-primary hover:underline font-medium">
+                Sign up
               </Text>
             </Link>
-          </CardContent>
-          <CardFooter className="flex-col gap-3">
-            <Button
-              onPress={handleLogin}
-              className="flex-row items-center gap-4"
-            >
-              {isLoading && <ActivityIndicator />}
-              <Text>{isLoading ? "Signing In..." : "Sign In"}</Text>
-            </Button>
-
-            {showVerificationPrompt && (
-              <View className="w-full">
-                <Text className="text-sm text-muted-foreground text-center mb-2">
-                  Email not verified? Check your inbox or resend verification.
-                </Text>
-                <Button
-                  variant="outline"
-                  onPress={handleResendVerification}
-                  disabled={isResendingVerification}
-                  className="flex-row items-center gap-2"
-                >
-                  {isResendingVerification && <ActivityIndicator />}
-                  <Text>
-                    {isResendingVerification
-                      ? "Sending..."
-                      : "Resend Verification Email"}
-                  </Text>
-                </Button>
-              </View>
-            )}
-            <View className="relative py-2">
-              <View className="absolute inset-0 flex items-center justify-center">
-                <View className="w-full border-t border-muted" />
-              </View>
-              <View className="relative flex justify-center text-center bg-background px-2">
-                <Text className="bg-background px-2 text-muted-foreground text-xs">
-                  Or continue with
-                </Text>
-              </View>
-            </View>
-            <Button
-              variant="outline"
-              onPress={async () => {
-                await authClient.signIn.social({
-                  provider: "google",
-                  callbackURL: "/",
-                });
-              }}
-              className="flex-row items-center gap-2"
-            >
-              <Text>Sign in with Google</Text>
-            </Button>
-          </CardFooter>
-          {/* Sign Up Option */}
-          <View className="p-6 pt-0">
-            <View className="flex-row justify-center items-center">
-              <Text className="text-sm text-muted-foreground">
-                Don't have an account?{" "}
-              </Text>
-              <Link href="/(public)/auth/sign-up">
-                <Text className="text-sm text-primary hover:underline font-medium">
-                  Sign up
-                </Text>
-              </Link>
-            </View>
           </View>
-        </Card>
+        </View>
       </View>
     </View>
   );

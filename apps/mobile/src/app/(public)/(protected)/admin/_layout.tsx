@@ -10,7 +10,7 @@ export default function AdminLayout() {
 	}
 
 	if (!data) {
-		return <Redirect href="/auth/sign-in" />;
+		return <Redirect href="/auth" />;
 	}
 
 	if (data?.user.role !== "admin") {

@@ -2,14 +2,7 @@ import { Link } from "expo-router";
 import { View } from "react-native";
 import { ActivityIndicator } from "~/components/ui/activity-indicator";
 import { Button } from "~/components/ui/button";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "~/components/ui/card";
+
 import { Input } from "~/components/ui/input";
 import { PasswordInput } from "~/components/ui/password";
 import { Progress } from "~/components/ui/progress";
@@ -75,14 +68,14 @@ export function SignUpForm({
 	const passwordStrength = calculatePasswordStrength(formData.password);
 
 	return (
-		<Card>
-			<CardHeader>
-				<CardTitle>Create an account</CardTitle>
-				<CardDescription>
+		<View className="gap-6">
+			<View className="gap-2">
+				<Text className="text-2xl font-bold">Create an account</Text>
+				<Text className="text-muted-foreground">
 					Enter your details to create a new account.
-				</CardDescription>
-			</CardHeader>
-			<CardContent className="gap-4">
+				</Text>
+			</View>
+			<View className="gap-4">
 				<Input
 					id="name"
 					placeholder="Full Name"
@@ -116,17 +109,17 @@ export function SignUpForm({
 						</View>
 					)}
 				</View>
-			</CardContent>
-			<CardFooter>
+			</View>
+			<View>
 				<Button
 					onPress={onSubmit}
-					className="flex-1 flex-row items-center gap-4"
+					className="flex-row items-center gap-4"
 					disabled={isLoading}
 				>
 					{isLoading && <ActivityIndicator />}
 					<Text>{isLoading ? "Creating Account..." : "Sign Up"}</Text>
 				</Button>
-			</CardFooter>
+			</View>
 			{/* Sign In Option */}
 			<View className="p-6 pt-0">
 				<View className="flex-row justify-center items-center">
@@ -140,6 +133,6 @@ export function SignUpForm({
 					</Link>
 				</View>
 			</View>
-		</Card>
+		</View>
 	);
 }

@@ -1,13 +1,6 @@
 import { View } from "react-native";
 import { Button } from "~/components/ui/button";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "~/components/ui/card";
+
 import { SkiaLoader } from "~/components/ui/skia-loader";
 import { Text } from "~/components/ui/text";
 import type { ApiStatus } from "~/utils/api";
@@ -34,14 +27,14 @@ export function SignUpSuccessCard({
 	return (
 		<>
 			<SkiaLoader component={() => import("~/components/ui/confetti")} />
-			<Card>
-				<CardHeader>
-					<CardTitle className="text-center">Check your email! 📧</CardTitle>
-					<CardDescription className="text-center">
+			<View className="gap-6">
+				<View className="gap-2">
+					<Text className="text-center text-2xl font-bold">Check your email! 📧</Text>
+					<Text className="text-center text-muted-foreground">
 						Your account has been created successfully.
-					</CardDescription>
-				</CardHeader>
-				<CardContent className="items-center gap-4">
+					</Text>
+				</View>
+				<View className="items-center gap-4">
 					<View className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full items-center justify-center">
 						<Text className="text-3xl">📧</Text>
 					</View>
@@ -53,8 +46,8 @@ export function SignUpSuccessCard({
 						Please check your email and click the verification link to complete
 						your account setup.
 					</Text>
-				</CardContent>
-				<CardFooter className="flex-col gap-3">
+				</View>
+				<View className="flex-col gap-3">
 					<Button onPress={onContinue} className="w-full">
 						<Text>Continue to App</Text>
 					</Button>
@@ -78,8 +71,8 @@ export function SignUpSuccessCard({
 							Failed to send verification email. Please try again.
 						</Text>
 					)}
-				</CardFooter>
-			</Card>
+				</View>
+			</View>
 		</>
 	);
 }
