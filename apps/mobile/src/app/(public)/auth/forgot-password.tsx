@@ -1,8 +1,9 @@
+// biome-ignore lint/performance/noNamespaceImport: no other option
 import * as Linking from "expo-linking";
-import { Link, useRouter } from "expo-router";
-import { ChevronLeft } from "lucide-react-native";
+import { Link } from "expo-router";
 import { useState } from "react";
 import { Platform, View } from "react-native";
+import { Header } from "~/components/header";
 import { Screen } from "~/components/screen";
 import { ActivityIndicator } from "~/components/ui/activity-indicator";
 import { Button } from "~/components/ui/button";
@@ -12,7 +13,6 @@ import { authClient } from "~/lib/auth-client";
 import { toast } from "~/lib/sonner/sonner";
 
 export default function ForgotPassword() {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -62,19 +62,10 @@ export default function ForgotPassword() {
 
   return (
     <Screen>
-      <View className="flex-row">
-        {router.canGoBack() && (
-          <Button
-            variant="ghost"
-            onPress={() => router.back()}
-        >
-          <ChevronLeft size={24} className="text-foreground" />
-        </Button>
-      )}
-      </View>
-      <View className="flex-1 w-full max-w-sm gap-6 p-6 justify-center">
+      <Header />
+      <View className="w-full max-w-sm flex-1 justify-center gap-6 p-6">
         <View className="gap-2">
-          <Text className="text-2xl font-bold">Reset your password</Text>
+          <Text className="font-bold text-2xl">Reset your password</Text>
           <Text className="text-muted-foreground">
             Enter your email address and we'll send you instructions to reset
             your password.
@@ -82,18 +73,18 @@ export default function ForgotPassword() {
         </View>
         <View className="gap-4">
           <Input
+            autoCapitalize="none"
             id={"email"}
+            keyboardType="email-address"
+            onChangeText={setEmail}
             placeholder="Email"
             value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
-            autoCapitalize="none"
           />
         </View>
         <View>
           <Button
-            onPress={handleResetPassword}
             className="flex-row items-center gap-4"
+            onPress={handleResetPassword}
           >
             {isLoading && <ActivityIndicator />}
             <Text>{isLoading ? "Sending..." : "Reset Password"}</Text>
@@ -101,12 +92,12 @@ export default function ForgotPassword() {
         </View>
         {/* Back to Sign In */}
         <View className="p-6 pt-0">
-          <View className="flex-row justify-center items-center">
-            <Text className="text-sm text-muted-foreground">
+          <View className="flex-row items-center justify-center">
+            <Text className="text-muted-foreground text-sm">
               Remember your password?{" "}
             </Text>
-            <Link href="/(public)/auth/sign-in">
-              <Text className="text-sm text-primary hover:underline font-medium">
+            <Link asChild dismissTo href="/(public)/auth/sign-in">
+              <Text className="font-medium text-primary text-sm hover:underline">
                 Sign in
               </Text>
             </Link>

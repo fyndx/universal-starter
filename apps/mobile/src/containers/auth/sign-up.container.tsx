@@ -32,15 +32,15 @@ export const SignUpContainer = observer(() => {
   };
 
   return (
-    <View className="flex-1 justify-center items-center p-6">
+    <View className="flex-1 items-center justify-center p-6">
       <View className="w-full max-w-sm">
         {status === "success" ? (
           <SignUpSuccessCard
-            userName={formData.name}
-            userEmail={formData.email}
             onContinue={handleContinue}
             onResendVerification={handleResendVerification}
             resendVerificationStatus={resendVerificationStatus}
+            userEmail={formData.email}
+            userName={formData.name}
           />
         ) : (
           <SignUpForm

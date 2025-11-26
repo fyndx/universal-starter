@@ -154,6 +154,15 @@ importers:
       '@radix-ui/colors':
         specifier: ^3.0.0
         version: 3.0.0
+      '@react-buoy/core':
+        specifier: ^1.5.18
+        version: 1.5.18(expo-clipboard@8.0.7(expo@54.0.25)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      '@react-buoy/env':
+        specifier: ^1.5.18
+        version: 1.5.18(expo-clipboard@8.0.7(expo@54.0.25)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      '@react-buoy/network':
+        specifier: ^1.5.18
+        version: 1.5.18(@tanstack/react-query@5.90.11(react@19.1.0))(expo-clipboard@8.0.7(expo@54.0.25)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
       '@react-native-async-storage/async-storage':
         specifier: 2.2.0
         version: 2.2.0(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))
@@ -235,6 +244,9 @@ importers:
       expo-blur:
         specifier: ~15.0.7
         version: 15.0.7(expo@54.0.25)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      expo-clipboard:
+        specifier: ~8.0.7
+        version: 8.0.7(expo@54.0.25)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
       expo-constants:
         specifier: ~18.0.10
         version: 18.0.10(expo@54.0.25)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))
@@ -2403,6 +2415,44 @@ packages:
   '@radix-ui/rect@1.1.1':
     resolution: {integrity: sha512-HPwpGIzkl28mWyZqG52jiqDJ12waP11Pa1lGoiyUkIEuMLBP0oeK/C89esbXrxsky5we7dfd8U58nm0SgAWpVw==}
 
+  '@react-buoy/core@1.5.18':
+    resolution: {integrity: sha512-AXsXi09UA9UIdL7dCXj1Bl/gJoSxlwRUsAuVq4x0NqPf2+CHPgvoVsf4UP0IZ7KzRi2hzBMUYmGMShcS4Y7mrw==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+
+  '@react-buoy/env@1.5.18':
+    resolution: {integrity: sha512-b6eWa2BnsinQuoz5BAPzYZAd1MNC5gJGAz1c1/DEZx1F2PVUuRMxPrUnQQlGFXxOYUR1WQbSr/VcTg8ZYd+KLA==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+
+  '@react-buoy/network@1.5.18':
+    resolution: {integrity: sha512-osv2VNdVUzXcpYfcWs0ULwh83xfna1+72XWLFxt4EZi91Y+wfOS4irehxiCFBB0XwNCq6CDJmCwdrl1n9FDv7w==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+
+  '@react-buoy/react-query@1.5.18':
+    resolution: {integrity: sha512-4iag2VadJ6Dn2IVBGDx3OwZ8G8PnEO/OWqJaQP3gfFqgWIzqAhXG48JofyXMGQ115T66jZ5wBbxnqE49C0ATCg==}
+    peerDependencies:
+      '@tanstack/react-query': '>=5.0.0'
+      react: '*'
+      react-native: '*'
+
+  '@react-buoy/shared-ui@1.5.18':
+    resolution: {integrity: sha512-ZkHNF+EJ39wjezUt/dYfUa0RRMWYVsq+f5jmyCXYw/mXXBmqElOY9fP/AMfQJmVxTJLTy9TlImGMmh4IDkJuhQ==}
+    peerDependencies:
+      '@react-native-clipboard/clipboard': '*'
+      expo-clipboard: '*'
+      react: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      '@react-native-clipboard/clipboard':
+        optional: true
+      expo-clipboard:
+        optional: true
+
   '@react-email/render@1.1.2':
     resolution: {integrity: sha512-RnRehYN3v9gVlNMehHPHhyp2RQo7+pSkHDtXPvg3s0GbzM9SQMW4Qrf8GRNvtpLC4gsI+Wt0VatNRUFqjvevbw==}
     engines: {node: '>=18.0.0'}
@@ -2780,6 +2830,14 @@ packages:
 
   '@standard-schema/spec@1.0.0':
     resolution: {integrity: sha512-m2bOd0f2RT9k8QJx1JN85cZYyH1RqFBdlwtkSlf4tBDYLCiiZnv1fIIwacK6cqwXavOydf0NPToMQgpKq+dVlA==}
+
+  '@tanstack/query-core@5.90.11':
+    resolution: {integrity: sha512-f9z/nXhCgWDF4lHqgIE30jxLe4sYv15QodfdPDKYAk7nAEjNcndy4dHz3ezhdUaR23BpWa4I2EH4/DZ0//Uf8A==}
+
+  '@tanstack/react-query@5.90.11':
+    resolution: {integrity: sha512-3uyzz01D1fkTLXuxF3JfoJoHQMU2fxsfJwE+6N5hHy0dVNoZOvwKP8Z2k7k1KDeD54N20apcJnG75TBAStIrBA==}
+    peerDependencies:
+      react: ^18 || ^19
 
   '@tokenizer/inflate@0.4.1':
     resolution: {integrity: sha512-2mAv+8pkG6GIZiF1kNg1jAjh27IDxEPKwdGul3snfztFerfPGI1LjDezZp3i7BElXompqEtPmoPx6c2wgtWsOA==}
@@ -3986,6 +4044,13 @@ packages:
 
   expo-blur@15.0.7:
     resolution: {integrity: sha512-SugQQbQd+zRPy8z2G5qDD4NqhcD7srBF7fN7O7yq6q7ZFK59VWvpDxtMoUkmSfdxgqONsrBN/rLdk00USADrMg==}
+    peerDependencies:
+      expo: '*'
+      react: '*'
+      react-native: '*'
+
+  expo-clipboard@8.0.7:
+    resolution: {integrity: sha512-zvlfFV+wB2QQrQnHWlo0EKHAkdi2tycLtE+EXFUWTPZYkgu1XcH+aiKfd4ul7Z0SDF+1IuwoiW9AA9eO35aj3Q==}
     peerDependencies:
       expo: '*'
       react: '*'
@@ -9279,6 +9344,52 @@ snapshots:
 
   '@radix-ui/rect@1.1.1': {}
 
+  '@react-buoy/core@1.5.18(expo-clipboard@8.0.7(expo@54.0.25)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      '@react-buoy/shared-ui': 1.5.18(expo-clipboard@8.0.7(expo@54.0.25)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      react: 19.1.0
+      react-native: 0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0)
+    transitivePeerDependencies:
+      - '@react-native-clipboard/clipboard'
+      - expo-clipboard
+
+  '@react-buoy/env@1.5.18(expo-clipboard@8.0.7(expo@54.0.25)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      '@react-buoy/shared-ui': 1.5.18(expo-clipboard@8.0.7(expo@54.0.25)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      react: 19.1.0
+      react-native: 0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0)
+    transitivePeerDependencies:
+      - '@react-native-clipboard/clipboard'
+      - expo-clipboard
+
+  '@react-buoy/network@1.5.18(@tanstack/react-query@5.90.11(react@19.1.0))(expo-clipboard@8.0.7(expo@54.0.25)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      '@react-buoy/react-query': 1.5.18(@tanstack/react-query@5.90.11(react@19.1.0))(expo-clipboard@8.0.7(expo@54.0.25)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      '@react-buoy/shared-ui': 1.5.18(expo-clipboard@8.0.7(expo@54.0.25)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      react: 19.1.0
+      react-native: 0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0)
+    transitivePeerDependencies:
+      - '@react-native-clipboard/clipboard'
+      - '@tanstack/react-query'
+      - expo-clipboard
+
+  '@react-buoy/react-query@1.5.18(@tanstack/react-query@5.90.11(react@19.1.0))(expo-clipboard@8.0.7(expo@54.0.25)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      '@react-buoy/shared-ui': 1.5.18(expo-clipboard@8.0.7(expo@54.0.25)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      '@tanstack/react-query': 5.90.11(react@19.1.0)
+      react: 19.1.0
+      react-native: 0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0)
+    transitivePeerDependencies:
+      - '@react-native-clipboard/clipboard'
+      - expo-clipboard
+
+  '@react-buoy/shared-ui@1.5.18(expo-clipboard@8.0.7(expo@54.0.25)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      react: 19.1.0
+      react-native: 0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0)
+    optionalDependencies:
+      expo-clipboard: 8.0.7(expo@54.0.25)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+
   '@react-email/render@1.1.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       html-to-text: 9.0.5
@@ -9729,6 +9840,13 @@ snapshots:
       '@sinonjs/commons': 3.0.1
 
   '@standard-schema/spec@1.0.0': {}
+
+  '@tanstack/query-core@5.90.11': {}
+
+  '@tanstack/react-query@5.90.11(react@19.1.0)':
+    dependencies:
+      '@tanstack/query-core': 5.90.11
+      react: 19.1.0
 
   '@tokenizer/inflate@0.4.1':
     dependencies:
@@ -11127,6 +11245,12 @@ snapshots:
       - supports-color
 
   expo-blur@15.0.7(expo@54.0.25)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0):
+    dependencies:
+      expo: 54.0.25(@babel/core@7.28.5)(@expo/metro-runtime@6.1.2)(expo-router@6.0.15)(react-native-webview@13.15.0(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      react: 19.1.0
+      react-native: 0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0)
+
+  expo-clipboard@8.0.7(expo@54.0.25)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0):
     dependencies:
       expo: 54.0.25(@babel/core@7.28.5)(@expo/metro-runtime@6.1.2)(expo-router@6.0.15)(react-native-webview@13.15.0(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
       react: 19.1.0

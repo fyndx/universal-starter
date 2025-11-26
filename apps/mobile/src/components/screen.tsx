@@ -14,8 +14,8 @@ const keyboardOffset = isIos ? 20 : 0;
 export const Screen = ({
   children,
   className,
-  SystemBarsProps,
-  KeyboardAvoidingViewProps,
+  SystemBarsProps: systemBarsProps,
+  KeyboardAvoidingViewProps: keyboardAvoidingViewProps,
 }: {
   children: React.ReactNode;
   className?: string;
@@ -27,13 +27,13 @@ export const Screen = ({
     <SafeAreaView className={cn("flex-1", className)}>
       <SystemBars
         style={isDarkColorScheme ? "dark" : "light"}
-        {...SystemBarsProps}
+        {...systemBarsProps}
       />
       <KeyboardAvoidingView
         behavior={isIos ? "padding" : "height"}
         keyboardVerticalOffset={keyboardOffset}
-        {...KeyboardAvoidingViewProps}
-        style={[{ flex: 1 }, KeyboardAvoidingViewProps?.style]}
+        {...keyboardAvoidingViewProps}
+        style={[{ flex: 1 }, keyboardAvoidingViewProps?.style]}
       >
         {children}
       </KeyboardAvoidingView>

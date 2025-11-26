@@ -1,8 +1,8 @@
-import { authClient } from "@/src/lib/auth-client";
 import { Link, useRouter } from "expo-router";
-import { ChevronLeft } from "lucide-react-native";
 import { useState } from "react";
 import { View } from "react-native";
+import { authClient } from "@/src/lib/auth-client";
+import { Header } from "~/components/header";
 import { Screen } from "~/components/screen";
 import { ActivityIndicator } from "~/components/ui/activity-indicator";
 import { Button } from "~/components/ui/button";
@@ -88,20 +88,11 @@ export default function SignIn() {
   };
 
   return (
-    <Screen className="flex-1">
-      <View className="flex-row">
-        {router.canGoBack() && (
-          <Button
-            variant="ghost"
-            onPress={() => router.back()}
-          >
-            <ChevronLeft size={24} className="text-foreground" />
-          </Button>
-        )}
-      </View>
-      <View className="flex-1 w-full max-w-sm gap-6 p-6 justify-center">
+    <Screen>
+      <Header />
+      <View className="flex-1 justify-center gap-6 p-6">
         <View className="gap-2">
-          <Text className="text-2xl font-bold">Login to your account</Text>
+          <Text className="font-bold text-2xl">Login to your account</Text>
           <Text className="text-muted-foreground">
             Enter your email and password to sign in.
           </Text>
@@ -109,42 +100,39 @@ export default function SignIn() {
         <View className="gap-4">
           <Input
             id={"email"}
+            onChangeText={setEmail}
             placeholder="Email"
             value={email}
-            onChangeText={setEmail}
           />
           <PasswordInput
             id={"password"}
+            onChangeText={setPassword}
             placeholder="Password"
             value={password}
-            onChangeText={setPassword}
           />
           {/* Forgot Password */}
-          <Link href="/(public)/auth/forgot-password" asChild>
-            <Text className="mt-2 text-right text-sm text-muted-foreground self-end hover:underline hover:text-primary">
+          <Link asChild href="/(public)/auth/forgot-password">
+            <Text className="mt-2 self-end text-right text-muted-foreground text-sm hover:text-primary hover:underline">
               Forgot Password?
             </Text>
           </Link>
         </View>
         <View className="flex-col gap-3">
-          <Button
-            onPress={handleLogin}
-            className="flex-row items-center gap-4"
-          >
+          <Button className="flex-row items-center gap-4" onPress={handleLogin}>
             {isLoading && <ActivityIndicator />}
             <Text>{isLoading ? "Signing In..." : "Sign In"}</Text>
           </Button>
 
           {showVerificationPrompt && (
             <View className="w-full">
-              <Text className="text-sm text-muted-foreground text-center mb-2">
+              <Text className="mb-2 text-center text-muted-foreground text-sm">
                 Email not verified? Check your inbox or resend verification.
               </Text>
               <Button
-                variant="outline"
-                onPress={handleResendVerification}
-                disabled={isResendingVerification}
                 className="flex-row items-center gap-2"
+                disabled={isResendingVerification}
+                onPress={handleResendVerification}
+                variant="outline"
               >
                 {isResendingVerification && <ActivityIndicator />}
                 <Text>
@@ -158,12 +146,12 @@ export default function SignIn() {
         </View>
         {/* Sign Up Option */}
         <View className="p-6 pt-0">
-          <View className="flex-row justify-center items-center">
-            <Text className="text-sm text-muted-foreground">
+          <View className="flex-row items-center justify-center">
+            <Text className="text-muted-foreground text-sm">
               Don't have an account?{" "}
             </Text>
-            <Link href="/(public)/auth/sign-up" asChild>
-              <Text className="text-sm text-primary hover:underline font-medium">
+            <Link asChild href="/(public)/auth/sign-up">
+              <Text className="font-medium text-primary text-sm hover:underline">
                 Sign up
               </Text>
             </Link>

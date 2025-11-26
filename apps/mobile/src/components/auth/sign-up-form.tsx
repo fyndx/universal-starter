@@ -10,129 +10,137 @@ import { Text } from "~/components/ui/text";
 
 // Password strength calculation
 function calculatePasswordStrength(password: string): {
-	strength: number;
-	label: string;
-	color: string;
+  strength: number;
+  label: string;
+  color: string;
 } {
-	if (!password) return { strength: 0, label: "", color: "" };
+  if (!password) {
+    return { strength: 0, label: "", color: "" };
+  }
 
-	let score = 0;
-	const checks = {
-		length: password.length >= 8,
-		lowercase: /[a-z]/.test(password),
-		uppercase: /[A-Z]/.test(password),
-		numbers: /\d/.test(password),
-		symbols: /[!@#$%^&*(),.?":{}|<>]/.test(password),
-	};
+  let score = 0;
+  const checks = {
+    length: password.length >= 8,
+    lowercase: /[a-z]/.test(password),
+    uppercase: /[A-Z]/.test(password),
+    numbers: /\d/.test(password),
+    symbols: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+  };
 
-	// Calculate score based on criteria met
-	Object.values(checks).forEach((check) => {
-		if (check) score += 20;
-	});
+  // Calculate score based on criteria met
+  Object.values(checks).forEach((check) => {
+    if (check) {
+      score += 20;
+    }
+  });
 
-	// Determine strength level and color
-	if (score <= 20)
-		return { strength: score, label: "Very Weak", color: "text-red-500" };
-	if (score <= 40)
-		return { strength: score, label: "Weak", color: "text-orange-500" };
-	if (score <= 60)
-		return { strength: score, label: "Fair", color: "text-yellow-500" };
-	if (score <= 80)
-		return { strength: score, label: "Good", color: "text-blue-500" };
-	return { strength: score, label: "Strong", color: "text-green-500" };
+  // Determine strength level and color
+  if (score <= 20) {
+    return { strength: score, label: "Very Weak", color: "text-red-500" };
+  }
+  if (score <= 40) {
+    return { strength: score, label: "Weak", color: "text-orange-500" };
+  }
+  if (score <= 60) {
+    return { strength: score, label: "Fair", color: "text-yellow-500" };
+  }
+  if (score <= 80) {
+    return { strength: score, label: "Good", color: "text-blue-500" };
+  }
+  return { strength: score, label: "Strong", color: "text-green-500" };
 }
 
-interface SignUpFormProps {
-	formData: {
-		name: string;
-		email: string;
-		password: string;
-	};
-	isLoading: boolean;
-	onFormDataChange: ({
-		field,
-		value,
-	}: {
-		field: string;
-		value: string;
-	}) => void;
-	onSubmit: () => void;
-}
+type SignUpFormProps = {
+  formData: {
+    name: string;
+    email: string;
+    password: string;
+  };
+  isLoading: boolean;
+  onFormDataChange: ({
+    field,
+    value,
+  }: {
+    field: string;
+    value: string;
+  }) => void;
+  onSubmit: () => void;
+};
 
 export function SignUpForm({
-	formData,
-	isLoading,
-	onFormDataChange,
-	onSubmit,
+  formData,
+  isLoading,
+  onFormDataChange,
+  onSubmit,
 }: SignUpFormProps) {
-	const passwordStrength = calculatePasswordStrength(formData.password);
+  const passwordStrength = calculatePasswordStrength(formData.password);
 
-	return (
-		<View className="gap-6">
-			<View className="gap-2">
-				<Text className="text-2xl font-bold">Create an account</Text>
-				<Text className="text-muted-foreground">
-					Enter your details to create a new account.
-				</Text>
-			</View>
-			<View className="gap-4">
-				<Input
-					id="name"
-					placeholder="Full Name"
-					value={formData.name}
-					onChangeText={(value) => onFormDataChange({ field: "name", value })}
-				/>
-				<Input
-					id="email"
-					placeholder="Email"
-					value={formData.email}
-					onChangeText={(value) => onFormDataChange({ field: "email", value })}
-				/>
-				<View className="gap-2">
-					<PasswordInput
-						id="password"
-						placeholder="Password"
-						value={formData.password}
-						onChangeText={(value) =>
-							onFormDataChange({ field: "password", value })
-						}
-					/>
-					{formData.password && (
-						<View className="gap-2">
-							<Progress
-								value={passwordStrength.strength}
-								className="web:w-full h-2"
-							/>
-							<Text className={`text-xs ${passwordStrength.color}`}>
-								{passwordStrength.label}
-							</Text>
-						</View>
-					)}
-				</View>
-			</View>
-			<View>
-				<Button
-					onPress={onSubmit}
-					className="flex-row items-center gap-4"
-					disabled={isLoading}
-				>
-					{isLoading && <ActivityIndicator />}
-					<Text>{isLoading ? "Creating Account..." : "Sign Up"}</Text>
-				</Button>
-			</View>
-			{/* Sign In Option */}
-			<View className="p-6 pt-0">
-				<View className="flex-row justify-center items-center">
-					<Text className="text-sm text-muted-foreground">
-						Already have an account?{" "}
-					</Text>
-					<Link href="/(public)/auth/sign-in">
-						<Text className="text-sm text-primary hover:underline font-medium">
-							Sign in
-						</Text>
-					</Link>
-				</View>
-			</View>
-		</View>
-	);
+  return (
+    <View className="gap-6">
+      <View className="gap-2">
+        <Text className="font-bold text-2xl">Create an account</Text>
+        <Text className="text-muted-foreground">
+          Enter your details to create a new account.
+        </Text>
+      </View>
+      <View className="gap-4">
+        <Input
+          id="name"
+          onChangeText={(value) => onFormDataChange({ field: "name", value })}
+          placeholder="Full Name"
+          value={formData.name}
+        />
+        <Input
+          id="email"
+          onChangeText={(value) => onFormDataChange({ field: "email", value })}
+          placeholder="Email"
+          value={formData.email}
+        />
+        <View className="gap-2">
+          <PasswordInput
+            id="password"
+            onChangeText={(value) =>
+              onFormDataChange({ field: "password", value })
+            }
+            placeholder="Password"
+            value={formData.password}
+          />
+          {formData.password && (
+            <View className="gap-2">
+              <Progress
+                className="h-2 web:w-full"
+                value={passwordStrength.strength}
+              />
+              <Text className={`text-xs ${passwordStrength.color}`}>
+                {passwordStrength.label}
+              </Text>
+            </View>
+          )}
+        </View>
+      </View>
+      <View>
+        <Button
+          className="flex-row items-center gap-4"
+          disabled={isLoading}
+          onPress={onSubmit}
+        >
+          {isLoading && <ActivityIndicator />}
+          <Text>{isLoading ? "Creating Account..." : "Sign Up"}</Text>
+        </Button>
+      </View>
+      {/* Sign In Option */}
+      <View className="p-6 pt-0">
+        <View className="flex-row items-center justify-center">
+          <Text className="text-muted-foreground text-sm">
+            Already have an account?{" "}
+          </Text>
+          <Link asChild dismissTo href="/(public)/auth/sign-in">
+            <Text className="font-medium text-primary text-sm hover:underline">
+              Sign in
+            </Text>
+          </Link>
+        </View>
+      </View>
+    </View>
+  );
 }
