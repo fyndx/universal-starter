@@ -41,23 +41,21 @@ export default function RootLayout() {
   }
 
   return (
-    <>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <ThemeProvider value={theme}>
-          <BottomSheetModalProvider>
-            <Stack>
-              <Stack.Screen name="index" options={{ headerShown: false }} />
-              <Stack.Screen name="(public)" options={{ headerShown: false }} />
-              <Stack.Screen name="+not-found" />
-            </Stack>
-          </BottomSheetModalProvider>
-          <StatusBar style={statusBarStyle} />
-          <Toaster />
-          <PortalHost name="root-portal" />
-        </ThemeProvider>
-      </GestureHandlerRootView>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ThemeProvider value={theme}>
+        <BottomSheetModalProvider>
+          <Stack>
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen name="(public)" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+        </BottomSheetModalProvider>
+        <StatusBar style={statusBarStyle} />
+        <Toaster />
+        <PortalHost name="root-portal" />
+      </ThemeProvider>
       <FloatingDevTools apps={customTools} />
-    </>
+    </GestureHandlerRootView>
   );
 }
 

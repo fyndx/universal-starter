@@ -1,7 +1,7 @@
 import { observer } from "@legendapp/state/react";
 import { type Href, useRouter } from "expo-router";
 import { useEffect, useRef } from "react";
-import { Pressable, View } from "react-native";
+import { View } from "react-native";
 import { ActivityIndicator } from "~/components/ui/activity-indicator";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import {
@@ -19,7 +19,6 @@ import {
 } from "~/components/ui/dropdown-menu";
 import { Text } from "~/components/ui/text";
 import { authClient } from "~/lib/auth-client";
-import { Menu } from "~/lib/icons/Menu";
 import { Shield } from "~/lib/icons/Shield";
 import { impersonationModel$ } from "~/models/core/impersonation.model";
 
@@ -140,7 +139,7 @@ export const HeaderUser = observer(() => {
           )}
         </View>
         {/* Mobile */}
-        <div className="flex md:hidden">
+        {/* <div className="flex md:hidden">
           {!(isPending || data) && (
             <Button
               onPress={() => bottomSheetModalRef.current?.present()}
@@ -159,7 +158,7 @@ export const HeaderUser = observer(() => {
               </Avatar>
             </Pressable>
           )}
-        </div>
+        </div> */}
       </View>
       <BottomSheetModal ref={bottomSheetModalRef}>
         <BottomSheetView className="bg-background p-4">
@@ -215,9 +214,7 @@ export const HeaderUser = observer(() => {
             </View>
           ) : (
             <View className="p-4">
-              <Button
-                onPress={() => push("/auth/sign-in", { withAnchor: true })}
-              >
+              <Button onPress={() => push("/auth", { withAnchor: true })}>
                 <Text>Login</Text>
               </Button>
             </View>

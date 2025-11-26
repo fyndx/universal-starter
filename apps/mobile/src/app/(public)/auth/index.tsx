@@ -6,6 +6,7 @@ import { Header } from "~/components/header";
 import { Screen } from "~/components/screen";
 import { Button } from "~/components/ui/button";
 import { Text } from "~/components/ui/text";
+import { toast } from "~/lib/sonner/sonner";
 
 export default function AuthIndex() {
   const router = useRouter();
@@ -13,10 +14,17 @@ export default function AuthIndex() {
   const handleSocialLogin = async (
     provider: "google" | "facebook" | "github" | "apple" | "linkedin"
   ) => {
-    await authClient.signIn.social({
+    const result = await authClient.signIn.social({
       provider,
       callbackURL: "/",
     });
+    if (result.error) {
+      toast.error("Failed to login", {
+        description: result.error.message,
+      });
+      return;
+    }
+    router.replace("/home");
   };
 
   return (
@@ -35,7 +43,9 @@ export default function AuthIndex() {
             onPress={() => handleSocialLogin("google")}
             variant="outline"
           >
-            <FontAwesome color="black" name="google" size={20} />
+            <Text>
+              <FontAwesome name="google" size={20} />
+            </Text>
             <Text>Continue with Google</Text>
           </Button>
           <Button
@@ -43,7 +53,9 @@ export default function AuthIndex() {
             onPress={() => handleSocialLogin("facebook")}
             variant="outline"
           >
-            <FontAwesome color="black" name="facebook" size={20} />
+            <Text>
+              <FontAwesome name="facebook" size={20} />
+            </Text>
             <Text>Continue with Facebook</Text>
           </Button>
           <Button
@@ -51,7 +63,9 @@ export default function AuthIndex() {
             onPress={() => handleSocialLogin("github")}
             variant="outline"
           >
-            <FontAwesome color="black" name="github" size={20} />
+            <Text>
+              <FontAwesome name="github" size={20} />
+            </Text>
             <Text>Continue with Github</Text>
           </Button>
           <Button
@@ -59,7 +73,9 @@ export default function AuthIndex() {
             onPress={() => handleSocialLogin("apple")}
             variant="outline"
           >
-            <FontAwesome color="black" name="apple" size={20} />
+            <Text>
+              <FontAwesome name="apple" size={20} />
+            </Text>
             <Text>Continue with Apple</Text>
           </Button>
           <Button
@@ -67,7 +83,9 @@ export default function AuthIndex() {
             onPress={() => handleSocialLogin("linkedin")}
             variant="outline"
           >
-            <FontAwesome color="black" name="linkedin" size={20} />
+            <Text>
+              <FontAwesome name="linkedin" size={20} />
+            </Text>
             <Text>Continue with Linkedin</Text>
           </Button>
 
