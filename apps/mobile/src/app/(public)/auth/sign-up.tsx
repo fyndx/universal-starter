@@ -1,5 +1,12 @@
+import { Header } from "~/components/header";
+import { Screen } from "~/components/screen";
 import { SignUpContainer } from "~/containers/auth/sign-up.container";
 
 export default function SignUp() {
-	return <SignUpContainer />;
+  return (
+    <Screen>
+      <Header />
+      <SignUpContainer />
+    </Screen>
+  );
 }

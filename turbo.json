@@ -1,5 +1,6 @@
 {
   "$schema": "https://turborepo.com/schema.json",
+  "ui": "tui",
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -18,7 +19,8 @@
     },
     "dev": {
       "persistent": true,
-      "cache": false
+      "cache": false,
+      "interactive": true
     },
     "db:push": {
       "cache": false,
@@ -49,6 +51,10 @@
       "persistent": true
     },
     "db:down": {
+      "cache": false,
+      "persistent": true
+    },
+    "db:reset": {
       "cache": false,
       "persistent": true
     }

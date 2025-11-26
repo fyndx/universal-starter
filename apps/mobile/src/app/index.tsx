@@ -2,6 +2,7 @@ import { Redirect } from "expo-router";
 import * as ExpoSplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { Platform, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { authClient } from "~/lib/auth-client";
 
 export default function SplashScreen() {
@@ -17,13 +18,13 @@ export default function SplashScreen() {
   // Show loading state while session is pending for Mobile
   if (!session) {
     return (
-      <View className="items-center gap-4">
+      <SafeAreaView className="flex-1 justify-center items-center gap-4">
         {/* Placeholder logo/icon */}
         <View className="w-20 h-20 bg-primary rounded-2xl items-center justify-center">
           <Text className="text-2xl font-bold text-primary-foreground">📱</Text>
         </View>
         <Text className="text-lg font-medium text-foreground">Loading...</Text>
-      </View>
+      </SafeAreaView>
     );
   }
 
@@ -32,6 +33,6 @@ export default function SplashScreen() {
     return <Redirect href="/(public)/(protected)/home/(tabs)" />;
   } else if (session.data === null) {
     // User is not authenticated, redirect to login
-    return <Redirect href="/(public)/auth/sign-in" />;
+    return <Redirect href="/(public)/auth" />;
   }
 }

@@ -1,3 +1,4 @@
+import "@src/env";
 import { etag } from "@bogeychan/elysia-etag";
 import { type pino, wrap } from "@bogeychan/elysia-logger";
 import cors from "@elysiajs/cors";

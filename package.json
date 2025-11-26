@@ -17,7 +17,7 @@
     "lefthook": "^1.12.3",
     "turbo": "^2.6.1",
     "typescript": "catalog:devDeps",
-    "ultracite": "5.3.3"
+    "ultracite": "6.3.6"
   },
   "engines": {
     "bun": ">=1.0.0"
