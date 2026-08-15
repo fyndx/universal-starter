@@ -1,23 +1,24 @@
 {
-  "name": "@universal/workers",
-  "module": "src/index.ts",
-  "type": "module",
-  "private": true,
-  "scripts": {
-    "build": "bun build --compile --minify-whitespace --minify-syntax --target bun --outfile worker ./src/index.ts",
-    "dev": "bun run --watch src/index.ts"
-  },
-  "dependencies": {
-    "@universal/db": "workspace:*",
-    "@universal/logger": "workspace:*",
-    "@universal/queue-kit": "workspace:*",
-    "@universal/shared": "workspace:*"
-  },
-  "devDependencies": {
-    "@types/bun": "latest",
-    "bullmq": "^5.58.4"
-  },
-  "peerDependencies": {
-    "typescript": "catalog:devDeps"
-  }
+	"name": "@universal/workers",
+	"private": true,
+	"type": "module",
+	"module": "src/index.ts",
+	"scripts": {
+		"build": "bun build --compile --minify-whitespace --minify-syntax --target bun --outfile worker ./src/index.ts",
+		"dev": "bun run --watch src/index.ts",
+		"test": "bun test"
+	},
+	"dependencies": {
+		"@universal/db": "workspace:*",
+		"@universal/logger": "workspace:*",
+		"@universal/queue-kit": "workspace:*",
+		"@universal/shared": "workspace:*"
+	},
+	"devDependencies": {
+		"@types/bun": "latest",
+		"bullmq": "^5.58.4"
+	},
+	"peerDependencies": {
+		"typescript": "catalog:devDeps"
+	}
 }

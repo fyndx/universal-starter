@@ -11,9 +11,11 @@ export const OpenAPI = {
 
 			for (const path of Object.keys(paths)) {
 				const key = prefix + path;
-				reference[key] = paths[path];
+				const pathItem = paths[path];
+				if (!pathItem) continue;
+				reference[key] = pathItem;
 
-				for (const method of Object.keys(paths[path])) {
+				for (const method of Object.keys(pathItem)) {
 					const operation = (reference[key] as any)[method];
 
 					operation.tags = ["Better Auth"];

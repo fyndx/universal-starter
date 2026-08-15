@@ -29,6 +29,10 @@ RUN turbo run build --filter=@universal/api
 FROM gcr.io/distroless/base
 WORKDIR /app
 
+# Copy curl from the builder stage for the Docker HEALTHCHECK.
+# distroless has no shell or package manager, so we bring the binary in.
+COPY --from=installer /usr/bin/curl /usr/bin/curl
+
 # Copy built server and public assets
 COPY --from=installer /app/apps/api/server server
 COPY --from=installer /app/apps/api/.env* ./
@@ -39,3 +43,6 @@ ENV NODE_ENV=production
 CMD ["./server"]
 
 EXPOSE 3000
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD ["/usr/bin/curl", "-sf", "http://localhost:3000/api/health"]

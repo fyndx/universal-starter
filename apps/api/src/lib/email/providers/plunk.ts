@@ -37,7 +37,7 @@ export class PlunkProvider implements EmailProvider {
 				throw new Error(`Plunk API error: ${response.statusText}`);
 			}
 
-			const result = await response.json();
+			const result = (await response.json()) as { id?: string };
 
 			return {
 				success: true,

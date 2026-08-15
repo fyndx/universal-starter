@@ -1,21 +1,26 @@
 {
-  "name": "@universal/logger",
-  "module": "src/index.ts",
-  "type": "module",
-  "private": true,
-  "exports": {
-    ".": "./src/index.ts"
-  },
-  "devDependencies": {
-    "@types/bun": "latest",
-    "@universal/typescript-config": "workspace:*"
-  },
-  "peerDependencies": {
-    "typescript": "catalog:devDeps"
-  },
-  "dependencies": {
-    "@bogeychan/elysia-logger": "^0.1.10",
-    "pino": "^9.9.0",
-    "pino-pretty": "^13.1.1"
-  }
+	"name": "@universal/logger",
+	"private": true,
+	"type": "module",
+	"module": "src/index.ts",
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"scripts": {
+		"test": "bun test",
+		"check-types": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@bogeychan/elysia-logger": "^0.1.10",
+		"pino": "^9.9.0",
+		"pino-pretty": "^13.1.1",
+		"zod": "catalog:validation"
+	},
+	"devDependencies": {
+		"@types/bun": "latest",
+		"@universal/typescript-config": "workspace:*"
+	},
+	"peerDependencies": {
+		"typescript": "catalog:devDeps"
+	}
 }

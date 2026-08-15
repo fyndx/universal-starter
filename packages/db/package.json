@@ -1,33 +1,37 @@
 {
-  "name": "@universal/db",
-  "module": "src/index.ts",
-  "type": "module",
-  "private": true,
-  "scripts": {
-    "build": "bun run db:generate",
-    "db:generate": "prisma generate",
-    "db:studio": "prisma studio",
-    "db:migrate": "prisma migrate dev",
-    "db:push": "prisma db push",
-    "db:seed": "bun prisma/seeds/index.ts",
-    "db:reset": "prisma migrate reset",
-    "db:deploy": "prisma migrate deploy"
-  },
-  "devDependencies": {
-    "@types/bun": "latest",
-    "@types/pg": "^8.15.6",
-    "@universal/typescript-config": "workspace:*",
-    "prisma": "^7.0.0"
-  },
-  "peerDependencies": {
-    "typescript": "catalog:devDeps"
-  },
-  "dependencies": {
-    "@prisma/adapter-pg": "^7.0.0",
-    "@prisma/client": "^7.0.0",
-    "dotenv": "^17.2.3"
-  },
-  "exports": {
-    ".": "./src/index.ts"
-  }
+	"name": "@universal/db",
+	"private": true,
+	"type": "module",
+	"module": "src/index.ts",
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"scripts": {
+		"build": "bun run db:generate",
+		"db:generate": "prisma generate",
+		"db:studio": "prisma studio",
+		"db:migrate": "prisma migrate dev",
+		"db:push": "prisma db push",
+		"db:seed": "bun prisma/seeds/index.ts",
+		"db:reset": "prisma migrate reset",
+		"db:deploy": "prisma migrate deploy",
+		"test": "bun test",
+		"check-types": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@prisma/adapter-pg": "^7.0.0",
+		"@prisma/client": "^7.0.0",
+		"@prisma/client-runtime-utils": "^7.0.0",
+		"dotenv": "^17.2.3",
+		"zod": "catalog:validation"
+	},
+	"devDependencies": {
+		"@types/bun": "latest",
+		"@types/pg": "^8.15.6",
+		"@universal/typescript-config": "workspace:*",
+		"prisma": "^7.0.0"
+	},
+	"peerDependencies": {
+		"typescript": "catalog:devDeps"
+	}
 }

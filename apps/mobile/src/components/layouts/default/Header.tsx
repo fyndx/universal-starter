@@ -77,7 +77,7 @@ export function Header({ isScrolled }: HeaderProps) {
 		setValue("");
 	}
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: `navigation` is stable
+	// navigation is stable — no need to add to deps
 	useEffect(() => {
 		const sub = navigation.addListener("blur", () => {
 			closeAll();

@@ -1,0 +1,28 @@
+{
+	"$schema": "./node_modules/oxfmt/configuration_schema.json",
+	"useTabs": true,
+	"tabWidth": 2,
+	"printWidth": 80,
+	"singleQuote": false,
+	"jsxSingleQuote": false,
+	"quoteProps": "as-needed",
+	"trailingComma": "all",
+	"semi": true,
+	"arrowParens": "always",
+	"bracketSameLine": false,
+	"bracketSpacing": true,
+	"ignorePatterns": [
+		"node_modules",
+		"dist",
+		".next",
+		".expo",
+		".turbo",
+		"packages/db/src/generated",
+		"apps/api/server",
+		"apps/mobile/dist",
+		"apps/mobile/web-server",
+		"apps/mobile/ios",
+		"apps/mobile/android",
+		"apps/workers/worker"
+	]
+}

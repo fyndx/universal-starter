@@ -1,20 +1,25 @@
 {
-  "name": "@universal/redis",
-  "module": "src/index.ts",
-  "type": "module",
-  "private": true,
-  "exports": {
-    ".": "./src/index.ts"
-  },
-  "devDependencies": {
-    "@types/bun": "latest",
-    "@universal/typescript-config": "workspace:*"
-  },
-  "peerDependencies": {
-    "typescript": "catalog:devDeps"
-  },
-  "dependencies": {
-    "@universal/logger": "workspace:*",
-    "ioredis": "^5.7.0"
-  }
+	"name": "@universal/redis",
+	"private": true,
+	"type": "module",
+	"module": "src/index.ts",
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"scripts": {
+		"test": "bun test",
+		"check-types": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@universal/logger": "workspace:*",
+		"ioredis": "^5.7.0",
+		"zod": "catalog:validation"
+	},
+	"devDependencies": {
+		"@types/bun": "latest",
+		"@universal/typescript-config": "workspace:*"
+	},
+	"peerDependencies": {
+		"typescript": "catalog:devDeps"
+	}
 }

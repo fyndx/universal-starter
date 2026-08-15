@@ -1,26 +1,31 @@
 {
-  "name": "universal-starter",
-  "private": true,
-  "workspaces": {
-    "packages": [
-      "apps/*",
-      "packages/*"
-    ]
-  },
-  "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "catalog:devDeps",
-    "@types/bun": "latest",
-    "lefthook": "^1.12.3",
-    "turbo": "^2.6.1",
-    "typescript": "catalog:devDeps",
-    "ultracite": "6.3.6"
-  },
-  "engines": {
-    "bun": ">=1.0.0"
-  },
-  "packageManager": "pnpm@10.23.0"
+	"name": "universal-starter",
+	"private": true,
+	"workspaces": {
+		"packages": [
+			"apps/*",
+			"packages/*"
+		]
+	},
+	"scripts": {
+		"dev": "turbo run dev",
+		"build": "turbo run build",
+		"lint": "oxlint",
+		"lint:fix": "oxlint --fix",
+		"format": "oxfmt --write .",
+		"format:check": "oxfmt --check .",
+		"prepare": "lefthook install"
+	},
+	"devDependencies": {
+		"@types/bun": "latest",
+		"lefthook": "^1.12.3",
+		"oxfmt": "catalog:devDeps",
+		"oxlint": "catalog:devDeps",
+		"turbo": "^2.6.1",
+		"typescript": "catalog:devDeps"
+	},
+	"engines": {
+		"bun": ">=1.0.0"
+	},
+	"packageManager": "pnpm@10.23.0"
 }

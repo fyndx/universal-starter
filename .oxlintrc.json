@@ -1,0 +1,31 @@
+{
+	"$schema": "./node_modules/oxlint/configuration_schema.json",
+	"plugins": ["typescript", "unicorn", "oxc", "react", "import", "vitest"],
+	"categories": {
+		"correctness": "error",
+		"suspicious": "warn"
+	},
+	"rules": {
+		"no-console": "warn"
+	},
+	"env": {
+		"builtin": true,
+		"browser": true,
+		"node": true,
+		"es2024": true
+	},
+	"ignorePatterns": [
+		"node_modules",
+		"dist",
+		".next",
+		".expo",
+		".turbo",
+		"packages/db/src/generated",
+		"apps/api/server",
+		"apps/mobile/dist",
+		"apps/mobile/web-server",
+		"apps/mobile/ios",
+		"apps/mobile/android",
+		"apps/workers/worker"
+	]
+}

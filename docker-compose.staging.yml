@@ -1,11 +1,24 @@
 services:
   web:
     build:
+      dockerfile: ./apps/web/Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+    ports:
+      - "8000:3000"
+    depends_on:
+      - api
+    environment:
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+  mobile-web:
+    build:
       dockerfile: ./apps/mobile/Dockerfile
       args:
         - EXPO_PUBLIC_API_URL=${EXPO_PUBLIC_API_URL}
     ports:
       - "4000:4000"
+    depends_on:
+      - api
   api:
     build:
       dockerfile: ./apps/api/Dockerfile
@@ -40,7 +53,7 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
-      POSTGRES_DB: ${POSTGRES_DB:-universal_starter}
+      POSTGRES_DB: ${POSTGRES_DB:-universal-starter}
     ports:
       - "5432:5432"
     volumes:

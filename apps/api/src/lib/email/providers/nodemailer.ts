@@ -19,7 +19,7 @@ export class NodemailerProvider implements EmailProvider {
 	constructor(config: EmailConfig) {
 		if (config.nodemailerService) {
 			// Use service-based configuration (Gmail, Outlook, etc.)
-			this.transporter = nodemailer.createTransporter({
+			this.transporter = nodemailer.createTransport({
 				service: config.nodemailerService,
 				auth: {
 					user: config.nodemailerUser,
@@ -28,7 +28,7 @@ export class NodemailerProvider implements EmailProvider {
 			});
 		} else {
 			// Use SMTP configuration
-			this.transporter = nodemailer.createTransporter({
+			this.transporter = nodemailer.createTransport({
 				host: config.smtpHost,
 				port: config.smtpPort || 587,
 				secure: config.smtpSecure || false,

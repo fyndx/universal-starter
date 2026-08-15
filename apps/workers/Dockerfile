@@ -33,3 +33,7 @@ COPY --from=installer /app/apps/workers/.env* ./
 ENV NODE_ENV=production
 
 CMD ["./worker"]
+
+# Workers use distroless (no shell/curl). Health monitoring is done via
+# the orchestrator (Docker Compose restart policy, k8s liveness probes)
+# or by checking the worker's Redis connection from a sidecar.

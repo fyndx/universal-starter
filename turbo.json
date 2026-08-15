@@ -1,62 +1,66 @@
 {
-  "$schema": "https://turborepo.com/schema.json",
-  "ui": "tui",
-  "tasks": {
-    "build": {
-      "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": ["dist/**"]
-    },
-    "deploy": {
-      "dependsOn": ["^build"],
-      "cache": false
-    },
-    "lint": {
-      "dependsOn": ["^lint"]
-    },
-    "check-types": {
-      "dependsOn": ["^check-types"]
-    },
-    "dev": {
-      "persistent": true,
-      "cache": false,
-      "interactive": true
-    },
-    "db:push": {
-      "cache": false,
-      "persistent": true
-    },
-    "db:studio": {
-      "cache": false,
-      "persistent": true
-    },
-    "db:migrate": {
-      "cache": false,
-      "persistent": true
-    },
-    "db:generate": {
-      "cache": false,
-      "persistent": true
-    },
-    "db:start": {
-      "cache": false,
-      "persistent": true
-    },
-    "db:stop": {
-      "cache": false,
-      "persistent": true
-    },
-    "db:watch": {
-      "cache": false,
-      "persistent": true
-    },
-    "db:down": {
-      "cache": false,
-      "persistent": true
-    },
-    "db:reset": {
-      "cache": false,
-      "persistent": true
-    }
-  }
+	"$schema": "https://turborepo.com/schema.json",
+	"ui": "tui",
+	"tasks": {
+		"build": {
+			"dependsOn": ["^build"],
+			"inputs": ["$TURBO_DEFAULT$", ".env*"],
+			"outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+		},
+		"deploy": {
+			"dependsOn": ["^build"],
+			"cache": false
+		},
+		"lint": {
+			"dependsOn": ["^lint"]
+		},
+		"check-types": {
+			"dependsOn": ["^check-types"]
+		},
+		"test": {
+			"dependsOn": ["^build"],
+			"cache": false
+		},
+		"dev": {
+			"persistent": true,
+			"cache": false,
+			"interactive": true
+		},
+		"db:push": {
+			"cache": false,
+			"persistent": true
+		},
+		"db:studio": {
+			"cache": false,
+			"persistent": true
+		},
+		"db:migrate": {
+			"cache": false,
+			"persistent": true
+		},
+		"db:generate": {
+			"cache": false,
+			"persistent": true
+		},
+		"db:start": {
+			"cache": false,
+			"persistent": true
+		},
+		"db:stop": {
+			"cache": false,
+			"persistent": true
+		},
+		"db:watch": {
+			"cache": false,
+			"persistent": true
+		},
+		"db:down": {
+			"cache": false,
+			"persistent": true
+		},
+		"db:reset": {
+			"cache": false,
+			"persistent": true
+		}
+	}
 }

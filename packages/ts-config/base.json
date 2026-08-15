@@ -1,26 +1,25 @@
 {
-  "compilerOptions": {
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "target": "ESNext",
-    "lib": ["ESNext"],
-    "allowJs": true,
-    "resolveJsonModule": true,
-    "moduleDetection": "force",
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
+	"compilerOptions": {
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"target": "ESNext",
+		"lib": ["ESNext"],
+		"allowJs": true,
+		"resolveJsonModule": true,
+		"moduleDetection": "force",
+		"isolatedModules": true,
 
-    "incremental": true,
-    "disableSourceOfProjectReferenceRedirect": true,
-    "tsBuildInfoFile": "${configDir}/.cache/tsbuildinfo.json",
+		"incremental": true,
+		"disableSourceOfProjectReferenceRedirect": true,
+		"tsBuildInfoFile": "${configDir}/.cache/tsbuildinfo.json",
 
-    "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "checkJs": true,
+		"strict": true,
+		"noUncheckedIndexedAccess": true,
+		"checkJs": true,
 
-    "module": "preserve",
-    "moduleResolution": "bundler",
-    "noEmit": true
-  },
-  "exclude": ["node_modules", "build", "dist"]
+		"module": "preserve",
+		"moduleResolution": "bundler",
+		"noEmit": true
+	},
+	"exclude": ["node_modules", "build", "dist"]
 }

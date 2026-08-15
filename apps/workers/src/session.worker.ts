@@ -1,78 +1,77 @@
-import { prisma } from '@universal/db';
-import { makeWorker } from '@universal/queue-kit';
+import { prisma } from "@universal/db";
+import { makeWorker } from "@universal/queue-kit";
 import type {
-  PruneExpiredJobData,
-  PruneExpiredJobResult,
-} from '@universal/shared/queue';
-import { JOBS, QUEUES } from '@universal/shared/queue';
-import type { Job } from 'bullmq';
+	PruneExpiredJobData,
+	PruneExpiredJobResult,
+} from "@universal/shared/queue";
+import { JOBS, QUEUES } from "@universal/shared/queue";
+import type { Job } from "bullmq";
 
 const processPruneExpired = async (
-  job: Job<PruneExpiredJobData, PruneExpiredJobResult>
+	job: Job<PruneExpiredJobData, PruneExpiredJobResult>,
 ) => {
-  const raw = Number(job.data?.batchSize);
-  const batchSize =
-    Number.isFinite(raw) && raw > 0 ? Math.min(Math.floor(raw), 1000) : 500;
-  const now = new Date();
+	const raw = Number(job.data?.batchSize);
+	const batchSize =
+		Number.isFinite(raw) && raw > 0 ? Math.min(Math.floor(raw), 1000) : 500;
+	const now = new Date();
 
-  let totalDeleted = 0;
-  let batches = 0;
+	let totalDeleted = 0;
+	let batches = 0;
 
-  // biome-ignore lint/nursery/noUnnecessaryConditions: batch-deletion
-  while (true) {
-    const expiredSessions = await prisma.session.findMany({
-      where: {
-        expiresAt: {
-          lt: now,
-        },
-      },
-      orderBy: { expiresAt: 'asc' },
-      select: {
-        id: true,
-      },
-      take: batchSize,
-    });
+	while (true) {
+		const expiredSessions = await prisma.session.findMany({
+			where: {
+				expiresAt: {
+					lt: now,
+				},
+			},
+			orderBy: { expiresAt: "asc" },
+			select: {
+				id: true,
+			},
+			take: batchSize,
+		});
 
-    if (expiredSessions.length === 0) {
-      break;
-    }
+		if (expiredSessions.length === 0) {
+			break;
+		}
 
-    const ids = expiredSessions.map((session) => session.id);
+		const ids = expiredSessions.map((session) => session.id);
 
-    const { count } = await prisma.session.deleteMany({
-      where: {
-        id: {
-          in: ids,
-        },
-      },
-    });
+		const { count } = await prisma.session.deleteMany({
+			where: {
+				id: {
+					in: ids,
+				},
+			},
+		});
 
-    totalDeleted += count;
-    batches++;
+		totalDeleted += count;
+		batches++;
 
-    if (count < batchSize) {
-      break;
-    }
-  }
+		if (count < batchSize) {
+			break;
+		}
+	}
 
-  return {
-    deleted: totalDeleted,
-    batches,
-  };
+	return {
+		deleted: totalDeleted,
+		batches,
+	};
 };
 
 const processor = async (job: Job) => {
-  switch (job.name) {
-    case JOBS.session.pruneExpired:
-      return await processPruneExpired(
-        job as Job<PruneExpiredJobData, PruneExpiredJobResult>
-      );
-    default:
-      throw new Error(`Unknown job: ${job.name}`);
-  }
+	switch (job.name) {
+		case JOBS.session.pruneExpired:
+			return await processPruneExpired(
+				job as Job<PruneExpiredJobData, PruneExpiredJobResult>,
+			);
+		default:
+			throw new Error(`Unknown job: ${job.name}`);
+	}
 };
 
 export const sessionWorker = makeWorker({
-  name: QUEUES.session,
-  processor,
+	name: QUEUES.session,
+	processor,
 });

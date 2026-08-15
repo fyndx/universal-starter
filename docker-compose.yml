@@ -1,6 +1,15 @@
 services:
   web:
     build:
+      dockerfile: ./apps/web/Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+    ports:
+      - "8000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+  mobile-web:
+    build:
       dockerfile: ./apps/mobile/Dockerfile
       args:
         - EXPO_PUBLIC_API_URL=${EXPO_PUBLIC_API_URL}

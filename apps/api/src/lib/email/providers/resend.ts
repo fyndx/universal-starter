@@ -28,7 +28,7 @@ export class ResendProvider implements EmailProvider {
 					filename: att.filename,
 					content: att.content,
 				})),
-			});
+			} as Parameters<typeof this.resend.emails.send>[0]);
 
 			return {
 				success: true,

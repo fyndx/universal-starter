@@ -1,5 +1,10 @@
 {
-  "extends": "@universal/typescript-config/internal-package.json",
-  "include": ["prisma", "src"],
-  "exclude": ["node_modules"]
+	"extends": "@universal/typescript-config/internal-package.json",
+	"include": ["prisma", "src"],
+	"exclude": ["node_modules"],
+	"compilerOptions": {
+		"skipLibCheck": true,
+		"module": "commonjs",
+		"moduleResolution": "node"
+	}
 }
