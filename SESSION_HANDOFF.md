@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-08-15  
 **Repo:** `/Users/subramanya/Developer/github/universal-starter`  
-**Branch:** main (assumed)
+**Branch:** `feat/stability-p3-core` (committed: `8b3b22b`)
 
 ---
 
@@ -57,6 +57,8 @@
 
 ```bash
 cd /Users/subramanya/Developer/github/universal-starter
+
+# Already on branch feat/stability-p3-core (commit 8b3b22b)
 
 # 1. Finish p3-10: add zod to root and test
 # Edit package.json devDependencies to include "zod": "catalog:validation"
